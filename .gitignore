@@ -133,3 +133,4 @@ dmypy.json
 Development_data/
 noun_counting_data/
 glove_6B/
+englishPCFG.ser.gz
