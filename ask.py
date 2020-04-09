@@ -85,11 +85,11 @@ def main():
     STANFORD = os.path.join("CoreNLP")
 
     # Create the server
-    server = CoreNLPServer(
-        os.path.join(STANFORD, "stanford-corenlp-3.9.2.jar"),
-        os.path.join(STANFORD, "stanford-corenlp-3.9.2-models.jar"),
-    )
-    server.start()
+    # server = CoreNLPServer(
+    #     os.path.join(STANFORD, "stanford-corenlp-3.9.2.jar"),
+    #     os.path.join(STANFORD, "stanford-corenlp-3.9.2-models.jar"),
+    # )
+    # server.start()
 
     artF = open(article_path, "r", encoding='utf8')
     # quesF = open(questions_path, "r",encoding='utf8')
