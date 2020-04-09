@@ -8,6 +8,9 @@ from nltk.parse.corenlp import CoreNLPDependencyParser
 import os
 from nltk.tree import Tree
 
+import subprocess
+
+
 
 class SST():
     def __init__(self, label, children):
@@ -78,6 +81,10 @@ def main():
 
     # Check for inputs and assign paths to open files
     # print(len(sys.argv))
+    bashCommand = "nohup java -mx4g -cp \"CoreNLP/*\" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000 &"
+
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
 
     article_path = sys.argv[1]
     nquestions = (int)(sys.argv[2])
