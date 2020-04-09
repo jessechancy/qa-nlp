@@ -21,6 +21,7 @@ cd CoreNLP; \
 export CLASSPATH=""; for file in `find . -name "*.jar"`; \
 do export CLASSPATH="$CLASSPATH:`realpath $file`"; done
 
+ENV JAVA_XMX 4g
 # Expose port 9000 for standford corenlp
 ENV PORT 9000
 
@@ -35,6 +36,7 @@ COPY . .
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
 CMD ["chmod 777 start.sh"]
+CMD java -Xmx$JAVA_XMX -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
 
 #ENTRYPOINT ["/bin/bash", "-c"]
 ENTRYPOINT [ "./start.sh" ]
