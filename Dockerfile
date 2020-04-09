@@ -26,9 +26,6 @@ ENV PORT 9090
 
 EXPOSE 9090
 # Add the files into container, under QA folder, modify this based on your need
-ADD ask /QA
-ADD answer /QA
-ADD answer.py /QA
 
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
@@ -38,7 +35,6 @@ COPY . .
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
 CMD ["chmod 777 start.sh"]
-# Set working dir as /QA
-#WORKDIR /QA
+
 #ENTRYPOINT ["/bin/bash", "-c"]
 ENTRYPOINT [ "./start.sh" ]
