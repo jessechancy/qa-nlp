@@ -102,10 +102,10 @@ def main():
         if len(sentence) < 180:
             parse = next(parser.raw_parse(sentence))
             if satisfies_structure(parse, simple_predicate):
-                print("=========================== Sentence ======================")
-                print(parse)
-                #             print(parse.label())
-                print(sentence)
+                # print("=========================== Sentence ======================")
+                # print(parse)
+                # #             print(parse.label())
+                # print(sentence)
                 print(binary_question_from_tree(parse))
                 parse_list.append(parse)
                 questions_made+=1
