@@ -39,4 +39,4 @@ CMD ["chmod 777 start.sh"]
 CMD java -Xmx$JAVA_XMX -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
 
 #ENTRYPOINT ["/bin/bash", "-c"]
-ENTRYPOINT [ "./start.sh" ]
+#ENTRYPOINT [ "./start.sh" ]
