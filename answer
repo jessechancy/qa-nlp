@@ -5,6 +5,7 @@ import nltk
 from nltk.parse import CoreNLPParser
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+nltk.download("punkt")
 
 def cosine_sim(t1_set, t2_set):
 
@@ -128,8 +129,8 @@ def main():
     article_path = sys.argv[1]
     questions_path = sys.argv[2]
 
-    artF = open(article_path, "r")
-    quesF = open(questions_path, "r")
+    artF = open(article_path, "r",encoding='utf8')
+    quesF = open(questions_path, "r",encoding='utf8')
 
     #Temporary filler answering method
 
