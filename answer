@@ -121,7 +121,7 @@ def main():
     '''
 
     #Check for inputs and assign paths to open files
-    print(len(sys.argv))
+    # print(len(sys.argv))
     '''
     if len(sys.argv) != 3:
         print("ERROR: More arguments required - current number: " + str(len(sys.argv) - 1))
