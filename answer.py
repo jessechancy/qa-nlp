@@ -5,8 +5,8 @@ import nltk
 from nltk.parse import CoreNLPParser
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-nltk.download("punkt")
-nltk.download("stopwords")
+#nltk.download("punkt")
+#nltk.download("stopwords")
 # nltk.download("all")
 
 def cosine_sim(t1_set, t2_set):
@@ -121,7 +121,7 @@ def main():
     '''
 
     #Check for inputs and assign paths to open files
-    print(len(sys.argv))
+    # print(len(sys.argv))
     '''
     if len(sys.argv) != 3:
         print("ERROR: More arguments required - current number: " + str(len(sys.argv) - 1))
