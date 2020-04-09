@@ -133,3 +133,5 @@ dmypy.json
 Development_data/
 noun_counting_data/
 sources/
+
+.idea
