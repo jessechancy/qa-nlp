@@ -31,6 +31,9 @@ ADD answer /QA
 ADD answer.py /QA
 
 COPY . .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+
 # Change the permissions of programs, you may add other command if needed
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
