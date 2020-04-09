@@ -10,6 +10,7 @@ RUN apt-get -y update && \
 RUN pip3 install --upgrade pip
 RUN pip3 install spacy && \
  python3 -m spacy download en_core_web_lg
+RUN apt-get -y install wget
 RUN wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
 # Download standford NLP
 RUN unzip stanford-corenlp-full-2018-10-05.zip; \
