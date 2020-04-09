@@ -59,11 +59,10 @@ ENV PORT 9000
 EXPOSE 9000
 # Add the files into container, under QA folder, modify this based on your need
 RUN python3 -m spacy download en_core_web_sm
-COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
-
 
 RUN apt-get -y install openjdk-8-jdk
+COPY requirements.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Change the permissions of programs, you may add other command if needed
