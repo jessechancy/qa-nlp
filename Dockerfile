@@ -41,7 +41,7 @@ RUN wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
 # Download standford NLP
 RUN apt-get -y install unzip
 RUN unzip stanford-corenlp-full-2018-10-05.zip; \
-unzip stanford-ner-2018-10-16.zip; \
+unzip stanford-ner-2018-10-15.zip; \
 mv stanford-corenlp-full-2018-10-05 CoreNLP; \
 cd CoreNLP; \
 export CLASSPATH=""; for file in `find . -name "*.jar"`; \
@@ -62,6 +62,7 @@ EXPOSE 9000
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
+RUN apt-get install openjdk-8-jdk
 
 # Change the permissions of programs, you may add other command if needed
 CMD ["chmod 777 ask"]
