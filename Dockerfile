@@ -61,9 +61,9 @@ EXPOSE 9000
 
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
-COPY . .
-RUN apt-get -y install openjdk-8-jdk
 
+RUN apt-get -y install openjdk-8-jdk
+COPY . .
 # Change the permissions of programs, you may add other command if needed
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
