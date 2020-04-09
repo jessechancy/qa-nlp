@@ -68,6 +68,7 @@ RUN apt-get -y install openjdk-8-jdk
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
 CMD ["chmod 777 start.sh"]
+WORKDIR CoreNLP
 RUN java -Xmx$JAVA_XMX -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
 CMD ["/usr/bin/supervisord"]
 #ENTRYPOINT ["/bin/bash", "-c"]
