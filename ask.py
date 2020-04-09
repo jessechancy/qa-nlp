@@ -81,10 +81,10 @@ def main():
 
     # Check for inputs and assign paths to open files
     # print(len(sys.argv))
-    bashCommand = "nohup java -mx4g -cp \"CoreNLP/*\" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000 &"
-
-    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-    output, error = process.communicate()
+    # bashCommand = "nohup java -mx4g -cp \"CoreNLP/*\" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000 &"
+    #
+    # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    # output, error = process.communicate()
 
     article_path = sys.argv[1]
     nquestions = (int)(sys.argv[2])
@@ -92,11 +92,11 @@ def main():
     STANFORD = os.path.join("CoreNLP")
 
     # Create the server
-    # server = CoreNLPServer(
-    #     os.path.join(STANFORD, "stanford-corenlp-3.9.2.jar"),
-    #     os.path.join(STANFORD, "stanford-corenlp-3.9.2-models.jar"),
-    # )
-    # server.start()
+    server = CoreNLPServer(
+        os.path.join(STANFORD, "stanford-corenlp-3.9.2.jar"),
+        os.path.join(STANFORD, "stanford-corenlp-3.9.2-models.jar"),
+    )
+    server.start()
 
     artF = open(article_path, "r", encoding='utf8')
     # quesF = open(questions_path, "r",encoding='utf8')
