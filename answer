@@ -5,9 +5,9 @@ import nltk
 from nltk.parse import CoreNLPParser
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-nltk.download("punkt")
-nltk.download("stopwords")
-nltk.download("all")
+# nltk.download("punkt")
+# nltk.download("stopwords")
+# nltk.download("all")
 
 def cosine_sim(t1_set, t2_set):
 
