@@ -126,18 +126,4 @@ def main():
 
 # Main function
 if __name__ == "__main__":
-    import os, re, sys
-
-    terminators = ['.', '!', '?', "..."]
-    with open(sys.argv[1], 'r', encoding="utf-8") as f:
-            # prefix = filename.split(".")[0]
-            # with open(filename, "r") as f:
-                data = f.read()
-                # newFile = open(prefix + "sentence" + ".txt", "w+")
-                regexPattern = '|'.join(map(re.escape, terminators))
-                sentenceLst = re.split(regexPattern, data)
-                for sentence in sentenceLst:
-                    print(sentence)
-                    # newFile.write(sentence + "\n")
-                # newFile.close()
-
+    main()
