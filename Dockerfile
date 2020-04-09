@@ -13,6 +13,7 @@ RUN pip3 install spacy && \
 RUN apt-get -y install wget
 RUN wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
 # Download standford NLP
+RUN apt-get -y install unzip
 RUN unzip stanford-corenlp-full-2018-10-05.zip; \
 unzip stanford-ner-2018-10-16.zip; \
 mv stanford-corenlp-full-2018-10-05 CoreNLP; \
