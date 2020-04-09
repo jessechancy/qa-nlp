@@ -82,7 +82,7 @@ def main():
     article_path = sys.argv[1]
     nquestions = (int)(sys.argv[2])
 
-    STANFORD = os.path.join("models", "stanford-corenlp-full-2018-10-05")
+    STANFORD = os.path.join("CoreNLP")
 
     # Create the server
     server = CoreNLPServer(
