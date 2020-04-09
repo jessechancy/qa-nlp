@@ -1,9 +1,35 @@
 # Ubuntu Linux as the base image
 FROM ubuntu:16.04
 # Set UTF-8 encoding
+ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+
+# Fix bad proxy issue
+COPY system/99fixbadproxy /etc/apt/apt.conf.d/99fixbadproxy
 # Install packages, you should modify this based on your program
+RUN rm /var/lib/apt/lists/* -vf \
+    # Base dependencies
+    && apt-get -y update \
+    && apt-get -y dist-upgrade \
+    && apt-get -y --force-yes install \
+        apt-utils \
+        ca-certificates \
+        curl \
+        git \
+        htop \
+        libfontconfig \
+        nano \
+        net-tools \
+        supervisor \
+        wget \
+        gnupg \
+        zip \
+    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && apt-get install -y nodejs \
+    && mkdir -p /var/log/supervisor \
+    && rm -rf .profile
+
 RUN apt-get -y update && \
  apt-get -y upgrade && \
  apt-get -y install python3-pip python3-dev
@@ -21,6 +47,11 @@ cd CoreNLP; \
 export CLASSPATH=""; for file in `find . -name "*.jar"`; \
 do export CLASSPATH="$CLASSPATH:`realpath $file`"; done
 
+
+# Configure Supervisord and base env
+COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY bash/profile .profile
+
 ENV JAVA_XMX 4g
 # Expose port 9000 for standford corenlp
 ENV PORT 9000
@@ -36,7 +67,7 @@ COPY . .
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
 CMD ["chmod 777 start.sh"]
-CMD java -Xmx$JAVA_XMX -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
-
+RUN java -Xmx$JAVA_XMX -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
+CMD ["/usr/bin/supervisord"]
 #ENTRYPOINT ["/bin/bash", "-c"]
 #ENTRYPOINT [ "./start.sh" ]
