@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import nltk
 import sys, os
 from nltk.parse.corenlp import CoreNLPServer
