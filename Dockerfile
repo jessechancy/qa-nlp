@@ -30,9 +30,9 @@ ADD ask /QA
 ADD answer /QA
 ADD answer.py /QA
 
-COPY . .
+COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
-
+COPY . .
 
 # Change the permissions of programs, you may add other command if needed
 CMD ["chmod 777 ask"]
