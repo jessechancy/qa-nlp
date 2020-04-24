@@ -132,6 +132,6 @@ dmypy.json
 .DS_Store
 Development_data/
 noun_counting_data/
-glove_6B/
+glove.6B/
 englishPCFG.ser.gz
 GoogleNews-vectors-negative300.bin
