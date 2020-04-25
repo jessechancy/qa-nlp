@@ -97,30 +97,30 @@ def WH_question_from_tree(parsed_tree):
     doc = nlp(npWord)
     #print(f'ents : {npSpacy.ents}')
     for ent in doc.ents:
-        # print(f'ent text : {ent.text}\n')
-        # print(f'ent label : {ent.label}\n')
+        print('ent text : {ent.text}\n')
+        print('ent label : {ent.label}\n')
         text = ent.text
         label = ent.label
         if label =="GPE":
-            question.append(f"Where {npWord} {vpWord} ?")
+            question.append("Where {npWord} {vpWord} ?")
         elif label == 383: #"PERSON":
-            question.append(f"Who {vpWord}?")
+            question.append("Who {vpWord}?")
         elif label == 381: # "DATE":
-            question.append(f"When {vpWord} ?")
+            question.append("When {vpWord} ?")
         elif label == 380: # "object":
-            question.append(f"What {vpWord} ?")
+            question.append("What {vpWord} ?")
 
     innerNPtype = np[0].label()
     #innerNPtype2 = np[0][0].label()
     #question.append(f"What {npWord} {vpWord} ?")
     #question.append(f"Did {npWord} {vpWord} ?")
     if innerNPtype == "CD":
-        question.append(f"How many {npWord} ?")
+        question.append("How many {npWord} ?")
     if innerNPtype == "NNS":
         #question.append(f"Who are {npWord} ?")
-        question.append(f"What are {npWord} ?")
-        question.append(f"What {npWord} {vpWord} ?")
-        question.append(f"Why do {npWord} {vpWord} ?")
+        question.append("What are {npWord} ?")
+        question.append("What {npWord} {vpWord} ?")
+        question.append("Why do {npWord} {vpWord} ?")
     assert (np.label() == 'NP')
     assert (vp.label() == 'VP')
     '''

@@ -616,14 +616,15 @@ class BinAnswer():
 # Main function
 if __name__ == "__main__":
 
-    #article_path = sys.argv[1]
-    #questions_path = sys.argv[2]
+    article_path = sys.argv[1]
+    questions_path = sys.argv[2]
 
     print("START")
     print("Answer Preprocessing")
-    preProc = AnswerPreprocess("./noun_counting_data/a1.txt")
+    # preProc = AnswerPreprocess("./noun_counting_data/a1.txt")
+    preProc = AnswerPreprocess(article_path)
     print("Question Preprocessing")
-    qProc = QuestionPreprocess("./answering_test_documents/q1.txt")
+    qProc = QuestionPreprocess(questions_path)
     wa = WhAnswer()
     ba = BinAnswer()
 
