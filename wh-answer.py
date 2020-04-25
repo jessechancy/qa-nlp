@@ -6,6 +6,8 @@ from nltk.tree import Tree, ParentedTree
 from nltk.stem.snowball import SnowballStemmer
 from pycorenlp import StanfordCoreNLP
 from collections import defaultdict
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 def cosineSimilarity(v1, v2):
     if sum(v1) == 0 or sum(v2) == 0:
@@ -45,28 +47,14 @@ class whAnswer():
                 vector = np.asarray(values[1:], "float32")
                 self.embeddings_dict[word] = sum(vector)/len(vector) # take average
 
-        # self.prevSentence = ""
         self.sw = stopwords.words("english")
-        # randomEmbedding = np.random.uniform(low=-1.0, high=-1.0, size=(50,))
-        # self.unk = sum(randomEmbedding) / 50
-        # for sentence in self.sentences:
-        #     words = nltk.word_tokenize(sentence)
-        #     for w in words:
-        #         if w not in self.sw and w not in self.embeddings_dict:
-        #             self.oov[w] += 1
-        # for w in self.oov:
-        #     if self.oov[w] > 1:
-        #         randomEmbedding = np.random.uniform(low=-1.0, high=1.0, size=(50,))
-        #         self.embeddings_dict[w] = sum(randomEmbedding) / 50
 
 
     # use cos similarity of word embedding vectors to identify sentence
     # similar to the question
     def getSimilarSentences(self, question):
         qWords = nltk.word_tokenize(question)
-        qWords[0] = qWords[0].lower() # convert question word to lowercase
-        qSet = {w.lower() for w in qWords if w not in self.sw}
-
+        qSet = {w.lower() for w in qWords if w not in self.sw and w not in self.qw}
         embeddings = []
         for sentence in self.sentences:
             words = nltk.word_tokenize(sentence)
@@ -75,26 +63,26 @@ class whAnswer():
             sentenceEmbedding = []
             qEmbedding = []
             for w in combined:
+                documents = [sentence, w]
+                tfidf_vec = TfidfVectorizer().fit_transform(documents)
+                tfidf = ((tfidf_vec * tfidf_vec.T).A)[0,1]
                 if w in wordSet:
-                    sentenceEmbedding.append(self.embeddings_dict[w])
+                    sentenceEmbedding.append(self.embeddings_dict[w]*tfidf)
                 else:
                     sentenceEmbedding.append(0)
                 if w in qSet:
-                    qEmbedding.append(self.embeddings_dict[w])
+                    qEmbedding.append(self.embeddings_dict[w]*tfidf)
                 else:
                     qEmbedding.append(0)
             embeddings.append((sentenceEmbedding, qEmbedding))
 
-        # calculate and sort by cosine similarity
+        # calculate and sort by cosine similarity of word embeddings
         similarity = {}
         for i in range(len(embeddings)):
             v1, v2 = embeddings[i]
             similarity[i] = cosineSimilarity(v1, v2)
+
         sortedSim = [k for k, v in sorted(similarity.items(), key=lambda item: -item[1])]
-
-        # if sortedSim[0] != 0:
-        #     self.prevSentence = self.sentences[sortedSim[0]-1]
-
         return self.sentences[sortedSim[0]]
 
 
@@ -124,19 +112,19 @@ class whAnswer():
         # convert tree str to a list of noun phrases
         trees = self.getParseTree(sentence)
         parented = ParentedTree.convert(trees)
-        nounPhrases = []
+        verbPhrases = []
         inQuote = False # do not split noun phrases in a quote
         for tree in parented:
             for subtree in tree.subtrees():
                 if subtree.label() == 'VP' and not inQuote:
                     t = subtree
                     t = ' '.join(t.leaves())
-                    nounPhrases.append(t)
+                    verbPhrases.append(t)
                 if subtree.left_sibling() and subtree.left_sibling().label() == '``':
                     inQuote = True
                 if subtree.label() == '\'\'':
                     inQuote = False
-        return nounPhrases
+        return sorted(verbPhrases, key=len)
 
 
     def getParseTree(self, sentence):
@@ -163,14 +151,6 @@ class whAnswer():
         return output['sentences'][0]['tokens']
 
 
-    def corefResolution(self, sentence):
-        output = self.nlp.annotate(sentence, properties= {
-            'annotators': 'coref',
-            'outputFormat': 'json'
-        })
-        return output['corefs']
-
-
     def getNerTags(self, sentence):
         output = self.nlp.annotate(sentence, properties={
             'annotators': 'ner',
@@ -195,7 +175,6 @@ class whAnswer():
 
 
     def whereAnswer(self, question, sentence):
-        # print(sentence)
         nerTags = self.getNerTags(sentence)
         candidates = []
         for token in nerTags:
@@ -203,8 +182,6 @@ class whAnswer():
             text = token['text']
             if (text not in question and
                 (ner == 'LOCATION' or ner == 'CITY' or ner == 'COUNTRY')):
-                # tag = nltk.pos_tag(token['text'])
-                # if tag[0][1] == 'NNP':
                 candidates.append(text)
 
         if len(candidates) == 1:
@@ -245,7 +222,6 @@ class whAnswer():
 
 
     def whatAnswer(self, question, sentence):
-        # print(sentence)
         # return verb phrase if the main clause of the question contains VP
         qWords = {w.lower() for w in nltk.word_tokenize(question) if w not in self.sw}
         verbPhrases = self.getVerbPhrases(sentence)
@@ -343,9 +319,9 @@ class whAnswer():
     def isDep(self, phrase, subj):
         npDep = self.getDependencyParse(phrase)
         for dep in npDep:
-            if dep['dep'] == 'ROOT' and dep['dependentGloss'] != subj:
+            if dep['dep'] == 'ROOT' and dep['dependentGloss'].lower() != subj.lower():
                 return False
-            if dep['dep'] != 'ROOT' and dep['governorGloss'] != subj:
+            if dep['dep'] != 'ROOT' and dep['governorGloss'].lower() != subj.lower():
                 return False
         return True
 
@@ -354,7 +330,7 @@ class whAnswer():
         if 'How many' in question or 'How much' in question:
             dependency = self.getDependencyParse(question)
             subj = None
-            for dep in  dependency:
+            for dep in dependency:
                 if dep['dependentGloss'] == 'many':
                     subj = dep['governorGloss']
                     break
@@ -370,24 +346,23 @@ class whAnswer():
 if __name__ == '__main__':
     wa = whAnswer("./noun_counting_data/a1.txt")
     questions = [
-    "What video game series did Gyarados first show up?",
-    "What is Gyarados?",
+    # "What video game series did Gyarados first show up?",
+    "What is a Gyarados?",
     "What is Gyarados known in the Pokemon world for?",
     "What was Gyarados's beta name?",
     "What happens when Gyarados Mega Evolves?",
-    "Which anime did Gyarados first appear in?",
-    "Which chapter of Pokemon Adventures does Gyarados appear in?",
-    "Which flying type moves can Gyarados learn?",
-    "Who voiced Gyarados in English media?",
-    "Who owns a Gyarados?",
-    "Who owns a red Gyarados?",
-    "Who finalized Gyarados?",
-    "Where does Gyarados live?",
-    "Why is Gyarados hard to obtain?",
+    # "Which anime did Gyarados first appear in?",
+    # "Which chapter of Pokemon Adventures does Gyarados appear in?",
+    # "Which flying type moves can Gyarados learn?",
+    # "Who voiced Gyarados in English media?",
+    # "Who owns a Gyarados?",
+    # "Who owns a red Gyarados?",
+    # "Where does Gyarados live?",
+    # "Why is Gyarados hard to obtain?",
     "Why is Gyarados naturally violent?",
     "How many fins does Gyarados have?",
     "How many Magikarp Candies are needed to evolve Gyarados?",
-    "When can a carp evolve into a dragon?",
+    # "When can a carp evolve into a dragon?",
     ]
     for q in questions:
         print("Q: "+q)
@@ -408,15 +383,17 @@ if __name__ == '__main__':
         elif type == "How":
             print(wa.howAnswer(q, s))
 
-    # wa2 = whAnswer("./Development_data/set1/a1.txt")
-    # questions2 = [
-    # "What is the Old Kingdom frequently referred to as?",
-    # "What is the Old Kingdom also known as?",
-    # "What is the Old Kingdom famous for?",
-    # "What is the ancient Egyptian name for Memphis?",
-    # "What is the name for independent Egyption states?",
+    wa2 = whAnswer("./Development_data/set1/a1.txt")
+    questions2 = [
+    "What is the Old Kingdom frequently referred to as?",
+    "What is the Old Kingdom also known as?",
+    "What is the Old Kingdom famous for?",
+    "What is the ancient Egyptian name for Memphis?",
+    "What is the name for independent Egyption states?",
     # "Who was the first king of the Old Kingdom?",
     # "Who was Sneferu succeeded by?",
+    # "Who succeeded Sahure?",
+    # "Who built the Great Pyramid of Giza?"
     # "Where was the royal capital of Egypt?",
     # "Where did a new era of building start?",
     # "Who built the Great Pyramid of Giza?",
@@ -426,24 +403,25 @@ if __name__ == '__main__':
     # "Who succeeded Sneferu?",
     # "Who was Imhotep?",
     # "Who named the term Old Kingdom?",
-    # ]
-    # for q in questions2:
-    #     print("Q: "+q)
-    #     q = q[:-1] # remove question mark
-    #     s = wa2.getSimilarSentences(q)
-    #     type = q.split(" ")[0]
-    #     if type == "What" or type == "Which":
-    #         print(wa2.whatAnswer(q, s))
-    #     elif type == "When":
-    #         print(wa2.whenAnswer(q, s))
-    #     elif type == "Where":
-    #         print(wa2.whereAnswer(q, s))
-    #     elif type == "Who":
-    #         print(wa2.whoAnswer(q, s))
-    #     elif type == "Why":
-    #         print(wa2.whyAnswer(q, s))
-    #     elif type == "How":
-    #         print(wa2.howAnswer(q, s))
+    # "Who introduced the prenomen?",
+    ]
+    for q in questions2:
+        print("Q: "+q)
+        q = q[:-1] # remove question mark
+        s = wa2.getSimilarSentences(q)
+        type = q.split(" ")[0]
+        if type == "What" or type == "Which":
+            print(wa2.whatAnswer(q, s))
+        elif type == "When":
+            print(wa2.whenAnswer(q, s))
+        elif type == "Where":
+            print(wa2.whereAnswer(q, s))
+        elif type == "Who":
+            print(wa2.whoAnswer(q, s))
+        elif type == "Why":
+            print(wa2.whyAnswer(q, s))
+        elif type == "How":
+            print(wa2.howAnswer(q, s))
 
     # wa3 = whAnswer("./Development_data/set2/a1.txt")
     # questions3 = [
