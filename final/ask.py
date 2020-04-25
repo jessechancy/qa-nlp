@@ -9,18 +9,19 @@ import os
 import requests
 import spacy
 import neuralcoref
+from pytextrank import TextRank
 
 requests.post('http://[::]:9000/?properties={"annotators":"tokenize,ssplit,pos","outputFormat":"json"}', 
               data = {'data': "tmp"}).text
 
 parser = CoreNLPParser()
+tr = TextRank()
 sp = spacy.load('en_core_web_lg')
 neuralcoref.add_to_pipe(sp)
+sp.add_pipe(tr.PipelineComponent, name="textrank", last=True)
 
-content = []
-for i in range(1, 2):
-    with open(f'./../Development_data/set2/a{i}.txt', 'r') as f:
-        content.append(f.read())
+with open(f'./../Development_data/set2/a1.txt', 'r') as f:
+    file = (f.read())
 
 def get_resolved(doc, clusters):
     ''' Return a list of utterrances text where the coref are resolved to the most representative mention'''
@@ -44,11 +45,12 @@ def get_resolved(doc, clusters):
     return ''.join(resolved)
 
 sentences = []
-for file in content:
-    tmp_file = sp(file)
-    coref_text = get_resolved(tmp_file, tmp_file._.coref_clusters)
-    new_sentences = [sent.string.strip() for sent in sp(coref_text).sents]
-    sentences.extend(new_sentences)
+
+tmp_file = sp(file)
+rank_phrases = tmp_file._.phrases
+coref_text = get_resolved(tmp_file, tmp_file._.coref_clusters)
+new_sentences = [sent.string.strip() for sent in sp(coref_text).sents]
+sentences.extend(new_sentences)
 
 i = 0
 while i < len(sentences):
@@ -63,7 +65,7 @@ while i < len(sentences):
 
 q = Questions(sentences, parser, sp)
 indexed_questions, performance = q.get_questions()
-questions = rank(indexed_questions)
+questions = rank(indexed_questions, rank_phrases)
 for question in questions:
     print(question)
 print(performance)
