@@ -97,8 +97,8 @@ def WH_question_from_tree(parsed_tree):
     doc = nlp(npWord)
     #print(f'ents : {npSpacy.ents}')
     for ent in doc.ents:
-        print(f'ent text : {ent.text}\n')
-        print(f'ent label : {ent.label}\n')
+        # print(f'ent text : {ent.text}\n')
+        # print(f'ent label : {ent.label}\n')
         text = ent.text
         label = ent.label
         if label =="GPE":
