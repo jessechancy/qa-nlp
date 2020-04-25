@@ -63,6 +63,7 @@ RUN python3 -m spacy download en_core_web_sm
 RUN apt-get -y install openjdk-8-jdk
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
+RUN apt-get -y install python3-tk
 COPY . .
 
 # Change the permissions of programs, you may add other command if needed
