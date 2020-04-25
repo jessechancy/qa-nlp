@@ -1,0 +1,360 @@
+1
+Q: Did Kushan coins have images of Kushan Kings, Buddha, and figures from the Indo-Aryan and Iranian pantheons?
+Closest Sentence: Kushan coins had images of Kushan Kings, Buddha, and figures from the Indo-Aryan and Iranian pantheons.
+Question Word: 
+Was Declarative: False
+New Question Form: Kushan coins did have images of Kushan Kings , Buddha , and figures from the Indo - Aryan and Iranian pantheons ?
+A (yes/no): YES.
+
+2
+Q: Who established the Kushan Empire, although the relationship between the Yuezhi and the Kushans is unclear?
+Closest Sentence: The Chinese first referred to these people as the Yuezhi and said they established the Kushan Empire, although the relationship between the Yuezhi and the Kushans is still unclear.
+Question Word: who
+Was Declarative: False
+New Question Form: who established the Kushan Empire , although the relationship between the Yuezhi and the Kushans is unclear ?
+A (who): These people.
+
+3
+Q: Did the Kushans use the Greek language for administrative purposes, but began to use Bactrian language?
+Closest Sentence: The Kushans possibly used the Greek language initially for administrative purposes, but soon began to use Bactrian language.
+Question Word: 
+Was Declarative: False
+New Question Form: the Kushans did use the Greek language for administrative purposes , but began to use Bactrian language ?
+A (yes/no): YES.
+
+4
+Q: Did the Kushan dynasty have diplomatic contacts with the Roman Empire, Sasanian Persia, the Aksumite Empire and Han China?
+Closest Sentence: The Kushan dynasty had diplomatic contacts with the Roman Empire, Sasanian Persia, the Aksumite Empire and Han China.
+Question Word: 
+Was Declarative: False
+New Question Form: the Kushan dynasty did have diplomatic contacts with the Roman Empire , Sasanian Persia , the Aksumite Empire and Han China ?
+A (yes/no): YES.
+
+5
+Q: What tells us the Kushans divided up Bactria in 128 BC?
+Closest Sentence: Ban Gu's Book of Han tells us the Kushans (Kuei-shuang) divided up Bactria in 128 BC.
+Question Word: what
+Was Declarative: False
+New Question Form: what tells us the Kushans divided up Bactria in 128 BC ?
+A (what): Ban Gu's Book.
+
+6
+Q: Who tells us the Kushans divided up Bactria in 128 BC?
+Closest Sentence: Ban Gu's Book of Han tells us the Kushans (Kuei-shuang) divided up Bactria in 128 BC.
+Question Word: who
+Was Declarative: False
+New Question Form: who tells us the Kushans divided up Bactria in 128 BC ?
+A (who): Gu.
+
+7
+Q: Was the name Guishuang adopted in the West and modified into Kushan to designate the confederation, although the Chinese continued to call them Yuezhi?
+Closest Sentence: The name Guishuang was adopted in the West and modified into Kushan to designate the confederation, although the Chinese continued to call them Yuezhi.
+Question Word: 
+Was Declarative: False
+New Question Form: the name was Guishuang adopted in the West and modified into Kushan to designate the confederation , although the Chinese continued to call them Yuezhi ?
+A (yes/no): ('NO: reason - question head not in sentence - ', 'name', dict_keys(['adopt', 'guishuang', 'west', 'modify', 'kushan', 'designate', 'confederation', 'continue', 'chinese', 'call']))
+
+8
+Q: Did the Kushans adopt elements of the Hellenistic culture of Bactria?
+Closest Sentence: Coins of the Kushans on wildwinds.com
+Question Word: 
+Was Declarative: False
+New Question Form: the Kushans did adopt elements of the Hellenistic culture of Bactria ?
+A (yes/no): ('NO: reason - question head not in sentence - ', 'adopt', dict_keys(['coins', 'kushans', 'wildwinds.com']))
+
+9
+Q: May the great Kushan emperor Vima Kadphises have embraced Saivism, as surmised by coins minted during the period?
+Closest Sentence: The great Kushan emperor Vima Kadphises may have embraced Saivism (a sect of Hinduism), as surmised by coins minted during the period.
+Question Word: 
+Was Declarative: False
+New Question Form: the great Kushan emperor may Vima Kadphises have embraced Saivism , as surmised by coins minted during the period ?
+A (yes/no): YES.
+
+10
+Q: Did the following Kushan emperors represent a wide variety of faiths including Zoroastrianism, Buddhism, and Saivism?
+Closest Sentence: The following Kushan emperors represented a wide variety of faiths including Zoroastrianism, Buddhism, and possibly Saivism.
+Question Word: 
+Was Declarative: True
+New Question Form: did the following Kushan emperors represent a wide variety of faiths including Zoroastrianism , Buddhism , and Saivism ?
+A (declarative): The following Kushan emperors represented a wide variety of faiths including Zoroastrianism, Buddhism, and possibly Saivism.
+
+11
+Q: Did Vima Kadphises add to the Kushan territory by his conquests in Afghanistan and north-west Pakistan?
+Closest Sentence: Vima Kadphises added to the Kushan territory by his conquests in Afghanistan and north-west Pakistan.
+Question Word: 
+Was Declarative: False
+New Question Form: Vima Kadphises did add to the Kushan territory by his conquests in Afghanistan and north - west Pakistan ?
+A (yes/no): YES.
+
+12
+Q: What added to the Kushan territory by his conquests in Afghanistan and north-west Pakistan?
+Closest Sentence: Vima Kadphises added to the Kushan territory by his conquests in Afghanistan and north-west Pakistan.
+Question Word: what
+Was Declarative: False
+New Question Form: what added to the Kushan territory by his conquests in Afghanistan and north - west Pakistan ?
+A (what): Vima Kadphises.
+
+13
+Q: Was Vāsishka a Kushan emperor who seems to have a 20-year reign following Kanishka?
+Closest Sentence: Vāsishka was a Kushan emperor who seems to have a 20-year reign following Kanishka.
+Question Word: 
+Was Declarative: False
+New Question Form: Vāsishka was a Kushan emperor who seems to have a 20 - year reign following Kanishka ?
+A (yes/no): YES.
+
+14
+Q: Was Huvishka a Kushan emperor from I about thirty years?
+Closest Sentence: Heraios may have been the father of the first Kushan emperor Kujula Kadphises.
+Question Word: 
+Was Declarative: False
+New Question Form: Huvishka was a Kushan emperor from I about thirty years ?
+A (yes/no): ('NO: reason - subject head not in sentence', ('Huvishka', 'NNP'), {'case': ('of', 'IN'), 'det': ('the', 'DT'), 'amod': ('first', 'JJ'), 'compound': ('Kushan', 'NNP'), 'dep': ('Kadphises', 'NNP')})
+
+15
+Q: Did the Sasanians depose the Western dynasty and replaced them with Persian vassals known as the Kushanshas?
+Closest Sentence: The Sasanians deposed the Western dynasty and replaced them with Persian vassals known as the Kushanshas (also called Indo-Sasanians or Kushano-Sasanians).
+Question Word: 
+Was Declarative: False
+New Question Form: the Sasanians did depose the Western dynasty and replaced them with Persian vassals known as the Kushanshas ?
+A (yes/no): YES.
+
+16
+Q: Who deposed the Western dynasty and replaced them with Persian vassals known as the Kushanshas?
+Closest Sentence: The Sasanians deposed the Western dynasty and replaced them with Persian vassals known as the Kushanshas (also called Indo-Sasanians or Kushano-Sasanians).
+Question Word: who
+Was Declarative: False
+New Question Form: who deposed the Western dynasty and replaced them with Persian vassals known as the Kushanshas ?
+A (who): The Sasanians.
+
+17
+Q: Was the Eastern Kushan kingdom based in the Punjab?
+Closest Sentence: The Eastern Kushan kingdom was based in the Punjab.
+Question Word: 
+Was Declarative: False
+New Question Form: the Eastern Kushan kingdom was based in the Punjab ?
+A (yes/no): YES.
+
+18
+Q: Does the Kushan style of Kidarite coins indicate they claimed Kushan heritage?
+Closest Sentence: The Kushan style of Kidarite coins indicates they claimed Kushan heritage.
+Question Word: 
+Was Declarative: True
+New Question Form: does the Kushan style of Kidarite coins indicate they claimed Kushan heritage ?
+A (declarative): The Kushan style of Kidarite coins indicates they claimed Kushan heritage.
+
+19
+Q: Does the Kidarite seem to have been prosperous, although on a smaller scale than their Kushan predecessors?
+Closest Sentence: The Kidarite seem to have been rather prosperous, although on a smaller scale than their Kushan predecessors.
+Question Word: 
+Was Declarative: True
+New Question Form: does the Kidarite seem to have been prosperous , although on a smaller scale than their Kushan predecessors ?
+A (declarative): The Kidarite seem to have been rather prosperous, although on a smaller scale than their Kushan predecessors.
+
+20
+Q: Who are represented on early coins?
+Closest Sentence: Greek deities, with Greek names are represented on early coins.
+Question Word: who
+Was Declarative: False
+New Question Form: who are represented on early coins ?
+A (who): Greek deities.
+
+21
+Q: Was Kanishka a great patron of Buddhism;?
+Closest Sentence: Kanishka was a great patron of Buddhism; however, as Kushans expanded southward toward the Indian subcontinent the deities of their later coinage came to reflect its new Hindu majority.
+Question Word: 
+Was Declarative: False
+New Question Form: Kanishka was a great patron of Buddhism ; ?
+A (yes/no): YES.
+
+22
+Q: Was Kujula Kadphises the great-grandfather of Kanishka?
+Closest Sentence: Kujula Kadphises was the great-grandfather of Kanishka.
+Question Word: 
+Was Declarative: False
+New Question Form: Kujula Kadphises was the great - grandfather of Kanishka ?
+A (yes/no): YES.
+
+23
+Q: What was the great-grandfather of Kanishka?
+Closest Sentence: Kujula Kadphises was the great-grandfather of Kanishka.
+Question Word: what
+Was Declarative: False
+New Question Form: what was the great - grandfather of Kanishka ?
+A (what): The great - grandfather.
+
+24
+Q: Is Kanishka's era accepted to have begun in 127 on the basis of Harry Falk's ground-breaking research?
+Closest Sentence: Kanishka’s era is now generally accepted to have begun in 127 on the basis of Harry Falk’s ground-breaking research.
+Question Word: 
+Was Declarative: True
+New Question Form: is Kanishka 's era accepted to have begun in 127 on the basis of Harry Falk 's ground - breaking research ?
+A (declarative): Kanishka’s era is now generally accepted to have begun in 127 on the basis of Harry Falk’s ground-breaking research.
+
+25
+Q: Is Kanishka renowned in Buddhist tradition for having convened a great Buddhist council in Kashmir?
+Closest Sentence: Kanishka is renowned in Buddhist tradition for having convened a great Buddhist council in Kashmir.
+Question Word: 
+Was Declarative: False
+New Question Form: Kanishka is renowned in Buddhist tradition for having convened a great Buddhist council in Kashmir ?
+A (yes/no): YES.
+
+26
+Q: What may have embraced Saivism, as surmised by coins minted during the period?
+Closest Sentence: The great Kushan emperor Vima Kadphises may have embraced Saivism (a sect of Hinduism), as surmised by coins minted during the period.
+Question Word: what
+Was Declarative: False
+New Question Form: what may have embraced Saivism , as surmised by coins minted during the period ?
+A (what): The great Kushan emperor.
+
+27
+Q: Did Kujula issue an extensive series of coins and fathered two sons, Sadaṣkaṇa, and Vima Takto?
+Closest Sentence: According to the Rabatak inscription, Kanishka was the son of Vima Kadphises, the grandson of Sadashkana, and the great-grandson of Kujula Kadphises.
+Question Word: 
+Was Declarative: False
+New Question Form: Kujula did issue an extensive series of coins and fathered two sons , Sadaṣkaṇa , and Vima Takto ?
+A (yes/no): ('NO: reason - question head not in sentence - ', 'issue', dict_keys(['son', 'inscription', 'accord', 'kadphises', 'grandson', 'sadashkana']))
+
+28
+Q: Who were subjugated by the Persian Sasanian Empire and lost Sogdiana, Bactria and Gandhara to them?
+Closest Sentence: The Western Kushans (in Afghanistan) were soon subjugated by the Persian Sasanian Empire and lost Sogdiana, Bactria and Gandhara to them.
+Question Word: who
+Was Declarative: False
+New Question Form: who were subjugated by the Persian Sasanian Empire and lost Sogdiana , Bactria and Gandhara to them ?
+A (who): The Western Kushans.
+
+29
+Q: Did Vasudeva IV report possible child of Vasudeva III, ruling in Kandahar, uncertain?
+Closest Sentence: Vasudeva IV reported possible child of Vasudeva III, ruling in Kandahar, uncertain.
+Question Word: 
+Was Declarative: True
+New Question Form: did Vasudeva IV report possible child of Vasudeva III , ruling in Kandahar , uncertain ?
+A (declarative): Vasudeva IV reported possible child of Vasudeva III, ruling in Kandahar, uncertain.
+
+30
+Q: What reported possible child of Vasudeva III, ruling in Kandahar, uncertain?
+Closest Sentence: Vasudeva IV reported possible child of Vasudeva III, ruling in Kandahar, uncertain.
+Question Word: what
+Was Declarative: False
+New Question Form: what reported possible child of Vasudeva III , ruling in Kandahar , uncertain ?
+A (what): Vasudeva IV reported possible child of Vasudeva III, ruling in Kandahar, uncertain.
+
+31
+Q: What reported possible child of Vasudeva IV, ruling in Kabul, uncertain?
+Closest Sentence: Vasudeva IV reported possible child of Vasudeva III, ruling in Kandahar, uncertain.
+Question Word: what
+Was Declarative: False
+New Question Form: what reported possible child of Vasudeva IV , ruling in Kabul , uncertain ?
+A (what): Kandahar.
+
+32
+Q: What is renowned in Buddhist tradition for having convened a great Buddhist council in Kashmir?
+Closest Sentence: Kanishka is renowned in Buddhist tradition for having convened a great Buddhist council in Kashmir.
+Question Word: what
+Was Declarative: False
+New Question Form: what is renowned in Buddhist tradition for having convened a great Buddhist council in Kashmir ?
+A (what): Kanishka.
+
+33
+Q: Who used the Greek language for administrative purposes, but began to use Bactrian language?
+Closest Sentence: The Kushans possibly used the Greek language initially for administrative purposes, but soon began to use Bactrian language.
+Question Word: who
+Was Declarative: False
+New Question Form: who used the Greek language for administrative purposes , but began to use Bactrian language ?
+A (who): The Kushans.
+
+34
+Q: Was Turkmenistan known for the kushan Buddhist city of Merv?
+Closest Sentence: Turkmenistan was known for the kushan Buddhist city of Merv.
+Question Word: 
+Was Declarative: False
+New Question Form: Turkmenistan was known for the kushan Buddhist city of Merv ?
+A (yes/no): YES.
+
+35
+Q: Was Kušan Kashana - xšaθr -RRB- a syncretic empire, formed by the Yuezhi, in the Bactrian territories in the early 1st century?
+Closest Sentence: The Kushan Empire (Ancient Greek: Βασιλεία Κοσσανῶν; Bactrian: Κυϸανο, Kushano; Sanskrit: कुषाण राजवंश Kuṣāṇa Rājavaṃśa; BHS: Kashana Guṣāṇa-vaṃśa; Chinese: 贵霜帝国; Parthian: Kušan Kashana -xšaθr) was a syncretic empire, formed by the Yuezhi, in the Bactrian territories in the early 1st century.
+Question Word: 
+Was Declarative: False
+New Question Form: Kušan Kashana - xšaθr -RRB- was a syncretic empire , formed by the Yuezhi , in the Bactrian territories in the early 1st century ?
+A (yes/no): ('NO: reason - question head not in sentence - ', '-rrb-', dict_keys(['empire', 'greek', 'κοσσανῶν', 'bactrian', 'κυϸανο', 'sanskrit', 'rājavaṃśa', 'bhs', 'vaṃśa', 'chinese', 'parthian', 'xšaθr', 'form', 'yuezhi', 'territories', 'century']))
+
+36
+Q: What was a syncretic empire, formed by the Yuezhi, in the Bactrian territories in the early 1st century?
+Closest Sentence: The Kushan Empire (Ancient Greek: Βασιλεία Κοσσανῶν; Bactrian: Κυϸανο, Kushano; Sanskrit: कुषाण राजवंश Kuṣāṇa Rājavaṃśa; BHS: Kashana Guṣāṇa-vaṃśa; Chinese: 贵霜帝国; Parthian: Kušan Kashana -xšaθr) was a syncretic empire, formed by the Yuezhi, in the Bactrian territories in the early 1st century.
+Question Word: what
+Was Declarative: False
+New Question Form: what was a syncretic empire , formed by the Yuezhi , in the Bactrian territories in the early 1st century ?
+A (what): The Kushan Empire (Ancient Greek: Βασιλεία Κοσσανῶν; Bactrian: Κυϸανο, Kushano; Sanskrit: कुषाण राजवंश Kuṣāṇa Rājavaṃśa; BHS: Kashana Guṣāṇa-vaṃśa; Chinese: 贵霜帝国; Parthian: Kušan Kashana -xšaθr) was a syncretic empire, formed by the Yuezhi, in the Bactrian territories in the early 1st century.
+
+37
+Q: Did the Yuezhi reach the Hellenic kingdom of Greco-Bactria around 135 BC?
+Closest Sentence: The Yuezhi reached the Hellenic kingdom of Greco-Bactria (in northern Afghanistan and Uzbekistan) around 135 BC.
+Question Word: 
+Was Declarative: False
+New Question Form: the Yuezhi did reach the Hellenic kingdom of Greco - Bactria around 135 BC ?
+A (yes/no): YES.
+
+38
+Q: Does Gandhara consist of eastern Afghanistan and northern Pakistan?
+Closest Sentence: Gandhara consists of eastern Afghanistan and northern Pakistan.
+Question Word: 
+Was Declarative: False
+New Question Form: Gandhara does consist of eastern Afghanistan and northern Pakistan ?
+A (yes/no): YES.
+
+39
+Q: What was a great patron of Buddhism;?
+Closest Sentence: There is also some evidence that Huvishka himself was a follower of Mahāyāna Buddhism.
+Question Word: what
+Was Declarative: False
+New Question Form: what was a great patron of Buddhism ; ?
+A (what): A follower.
+
+40
+Q: Who adopted elements of the Hellenistic culture of Bactria?
+Closest Sentence: The Kushans adopted elements of the Hellenistic culture of Bactria.
+Question Word: who
+Was Declarative: False
+New Question Form: who adopted elements of the Hellenistic culture of Bactria ?
+A (who): The Kushans.
+
+41
+Q: Does a Sanskrit manuscript fragment in the Schøyen Collection describe Huvishka as one who has "set in the Mahāyāna?
+Closest Sentence: A Sanskrit manuscript fragment in the Schøyen Collection describes Huvishka as one who has "set forth in the Mahāyāna."
+Question Word: 
+Was Declarative: False
+New Question Form: a Sanskrit manuscript fragment in the Schøyen Collection does describe Huvishka as one who has " set in the Mahāyāna ?
+A (yes/no): YES.
+
+42
+Q: Was Qiujiuque more than eighty years old when he died?
+Closest Sentence: Qiujiuque [Kujula Kadphises] was more than eighty years old when he died.
+Question Word: 
+Was Declarative: False
+New Question Form: Qiujiuque was more than eighty years old when he died ?
+A (yes/no): YES.
+
+43
+Q: What was more than eighty years old when he died?
+Closest Sentence: Qiujiuque [Kujula Kadphises] was more than eighty years old when he died.
+Question Word: what
+Was Declarative: False
+New Question Form: what was more than eighty years old when he died ?
+A (what): Qiujiuque [ Kujula Kadphises ].
+
+44
+Q: What became king in his place?
+Closest Sentence: His son, Yangaozhen [probably Vema Tahk (tu) or, possibly, his brother Sadaṣkaṇa], became king in his place.
+Question Word: what
+Was Declarative: False
+New Question Form: what became king in his place ?
+A (what): His son.
+
+45
+Q: What is accepted to have begun in 127 on the basis of Harry Falk's ground-breaking research?
+Closest Sentence: Kanishka’s era is now generally accepted to have begun in 127 on the basis of Harry Falk’s ground-breaking research.
+Question Word: what
+Was Declarative: False
+New Question Form: what is accepted to have begun in 127 on the basis of Harry Falk 's ground - breaking research ?
+A (what): Kanishka’s.
+

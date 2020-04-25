@@ -13,6 +13,7 @@ from nltk.stem.snowball import SnowballStemmer
 from nltk.tree import Tree, ParentedTree
 from pycorenlp import StanfordCoreNLP
 from collections import defaultdict
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 class QuestionPreprocess():
     def __init__(self, filepath):
@@ -32,6 +33,7 @@ class AnswerPreprocess():
 
         self.parser = CoreNLPParser(url='http://localhost:9000')
         self.sw = stopwords.words("english")
+        self.qw = {"What", "Who", "When", "Where", "Why", "Which", "How"}
 
         # handle new lines - FIXME: Ask Sojeong about this note, might be related to an issue I had as well
         self.sentences = []
@@ -229,8 +231,6 @@ class WhAnswer():
         self.nlp = StanfordCoreNLP("http://localhost:9000")
 
         self.stemmer = SnowballStemmer("english")
-
-        self.qw = {"What", "Who", "When", "Where", "Why", "Which", "How"}
 
         self.sw = stopwords.words("english")
 
@@ -524,7 +524,7 @@ class BinAnswer():
             #print(key)
             #If head is not in other parse, then it is false
             if key not in sent_governors.keys():
-                return("NO: reason - question head not in sentence - ", key)
+                return("NO: reason - question head not in sentence - ", key, sent_governors.keys())
                 bool_yes = False
                 break
             
@@ -532,7 +532,7 @@ class BinAnswer():
             # (connected to this word), then it is false
             if ("nsubj" in ques_governors[key]):
                 if ("nsubj" not in sent_governors[key]):
-                    return("NO: reason - subject head not in sentence")
+                    return("NO: reason - subject head not in sentence", ques_governors[key]["nsubj"], sent_governors[key])
                     bool_yes = False
                     break
             if ("nsubjpass" in ques_governors[key]):
@@ -612,7 +612,40 @@ class BinAnswer():
         #Answer yes or no
         return(self.yes_no(q_governors, s_governors))
         
-        
+def sanitize(answer):
+    if len(answer) == 0:
+        return answer
+    
+    temp = answer.split()
+    result = ""
+    first = True
+    next_no_space = False
+    for word in temp:
+        if word in {"'s", ",", "'", ".", "!", "’", "’s"}: #add with no space
+            result = result + word
+            next_no_space = False
+        elif word == "-LRB-":
+            result = result + " " + "("
+            next_no_space = True
+        elif word == "-RRB-":
+            result = result + ")"
+            next_no_space = False
+        elif not first:
+            if (next_no_space):
+                result = result + word
+                next_no_space = False
+            else:
+                result = result + " " + word
+        else:
+           result = result + word 
+           first = False
+           next_no_space = False
+
+    if result[-1] != ".":
+        result = result + "."
+
+    return result
+
 # Main function
 if __name__ == "__main__":
 
@@ -621,13 +654,17 @@ if __name__ == "__main__":
 
     print("START")
     print("Answer Preprocessing")
-    preProc = AnswerPreprocess("./noun_counting_data/a1.txt")
+    #preProc = AnswerPreprocess("./noun_counting_data/a1.txt")
+    preProc = AnswerPreprocess("./Development_data/set2/a5.txt")
     print("Question Preprocessing")
-    qProc = QuestionPreprocess("./answering_test_documents/q1.txt")
+    #qProc = QuestionPreprocess("./answering_test_documents/q1.txt")
+    qProc = QuestionPreprocess("./answering_test_documents/jesse_2.txt")
     wa = WhAnswer()
     ba = BinAnswer()
     
     questions = qProc.getQuestions()
+
+    fileTest = open("test.txt", "+w")
 
     print("Questions")
     q_number = 0 #FIXME: Remove after testing
@@ -644,28 +681,72 @@ if __name__ == "__main__":
             new_sentence
         ] = preProc.getDeclarativeAndWhWord(q)
 
-        #print("Closest Sentence: " + s)
-        #print("Question Word: " + question_word)
-        #print("Was Declarative: " + str(was_declarative))
-        #print("New Question Form: " + new_sentence)
+        print("Closest Sentence: " + s)
+        print("Question Word: " + question_word)
+        print("Was Declarative: " + str(was_declarative))
+        print("New Question Form: " + new_sentence)
+
+        fileTest.write(str(q_number) + "\n")
+        fileTest.write("Q: " + q + "\n")
+        fileTest.write("Closest Sentence: " + s + "\n")
+        fileTest.write("Question Word: " + question_word + "\n")
+        fileTest.write("Was Declarative: " + str(was_declarative) + "\n")
+        fileTest.write("New Question Form: " + new_sentence + "\n")
 
         if new_sentence != "" and new_sentence[-1] == "?":
             new_sentence = new_sentence[:-1] #Remove question mark
 
-        if was_declarative:
-             print("A: ", wa.whatAnswer(q_mark_removed, s))
-
         if question_word == "what" or question_word == "which":
-            print("A: ", wa.whatAnswer(q_mark_removed, s))
+            answer = wa.whatAnswer(q_mark_removed, s)
+            answer = sanitize(answer)
+            print("A (what): ", answer)
+            fileTest.write("A (what): " + answer + "\n")
+
         elif question_word == "when":
-            print("A: ", wa.whenAnswer(q_mark_removed, s))
+            answer = wa.whenAnswer(q_mark_removed, s)
+            answer = sanitize(answer)
+            print("A (when): ", answer)
+            fileTest.write("A (when): " + answer + "\n")
+
         elif question_word == "where":
-            print("A: ", wa.whereAnswer(q_mark_removed, s))
+            answer = wa.whereAnswer(q_mark_removed, s)
+            answer = sanitize(answer)
+            print("A (where): ", answer)
+            fileTest.write("A (where): " + answer + "\n")
+
         elif question_word == "who":
-            print("A: ", wa.whoAnswer(q_mark_removed, s))
+            answer = wa.whoAnswer(q_mark_removed, s)
+            answer = sanitize(answer)
+            print("A (who): ", answer)
+            fileTest.write("A (who): " + answer + "\n")
+
         elif question_word == "why":
-            print("A: ", wa.whyAnswer(q_mark_removed, s))
+            answer = wa.whyAnswer(q_mark_removed, s)
+            answer = sanitize(answer)
+            print("A (why): ", answer)
+            fileTest.write("A (why): " + answer + "\n")
+
         elif question_word == "how":
-            print("A: ", wa.howAnswer(q_mark_removed, s))
+            answer = wa.howAnswer(q_mark_removed, s)
+            answer = sanitize(answer)
+            print("A (how): ", answer)
+            fileTest.write("A (how): " + answer + "\n")
+
+        elif not was_declarative:
+            answer = ba.answer(new_sentence, s)
+            if isinstance(answer, str):
+                answer = sanitize(answer)
+            print("A (yes/no): ", answer)
+            fileTest.write("A (yes/no): " + str(answer) + "\n")
+
         else:
-            print("A: ", ba.answer(new_sentence, s))
+            answer = wa.generalAnswer(q_mark_removed, s)
+            if isinstance(answer, str):
+                answer = sanitize(answer)
+            print("A (declarative): ", answer)
+            fileTest.write("A (declarative): " + answer + "\n")
+            
+        print()
+        fileTest.write("\n")
+
+    fileTest.close()
