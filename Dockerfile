@@ -64,13 +64,17 @@ RUN apt-get -y install openjdk-8-jdk
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN apt-get -y install python3-tk
+
+RUN wget http://nlp.stanford.edu/data/glove.6B.zip
+RUN unzip glove.6B.zip
+
 COPY . .
 
 # Change the permissions of programs, you may add other command if needed
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
 CMD ["chmod 777 start.sh"]
-RUN java -mx4g -cp "CoreNLP/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000
+RUN java -mx4g -cp "CoreNLP/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000 &
 CMD ["/usr/bin/supervisord"]
 #ENTRYPOINT ["/bin/bash", "-c"]
 ENTRYPOINT [ "./start.sh" ]
