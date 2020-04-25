@@ -7,6 +7,7 @@ import os
 import requests
 from nltk.tree import Tree
 from nltk.draw.tree import TreeView
+import sys
 
 STANFORD = os.path.join("models", "stanford-corenlp-full-2018-10-05")
 STANFORD = os.path.join("CoreNLP")
@@ -18,9 +19,8 @@ server = CoreNLPServer(
 filenames = ["a1.txt","a2.txt","a3.txt","a4.txt","a5.txt","a6.txt","a7.txt","a8.txt","a9.txt","a10.txt"]
 datum = ""
 
-for filename in filenames:
-    with open(filename,"r") as f:
-        datum += f.read()
+with open(sys.argv[1], 'r', encoding = "utf-8") as f:
+    datum += f.read()
 '''
 import wikipedia
 datum = (wikipedia.page(title="Pokemon").content)
@@ -153,7 +153,7 @@ print(f'apposition {r}')
 '''
 sentences = nltk.sent_tokenize(datum)
 questions_made = 0
-nquestions = 10
+nquestions = (int)(sys.argv[2])
 parse_list = []
 for sentence in sentences:
     if len(sentence) < 180:
