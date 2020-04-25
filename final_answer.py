@@ -13,7 +13,6 @@ from nltk.stem.snowball import SnowballStemmer
 from nltk.tree import Tree, ParentedTree
 from pycorenlp import StanfordCoreNLP
 from collections import defaultdict
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 class QuestionPreprocess():
     def __init__(self, filepath):
@@ -67,9 +66,7 @@ class AnswerPreprocess():
     # similar to the question
     def getSimilarSentences(self, question):
         qWords = nltk.word_tokenize(question)
-        qWords[0] = qWords[0].lower() # convert question word to lowercase
-        qSet = {w.lower() for w in qWords if w not in self.sw}
-
+        qSet = {w.lower() for w in qWords if w not in self.sw and w not in self.qw}
         embeddings = []
         for sentence in self.sentences:
             words = nltk.word_tokenize(sentence)
@@ -88,16 +85,13 @@ class AnswerPreprocess():
                     qEmbedding.append(0)
             embeddings.append((sentenceEmbedding, qEmbedding))
 
-        # calculate and sort by cosine similarity
+        # calculate and sort by cosine similarity of word embeddings
         similarity = {}
         for i in range(len(embeddings)):
             v1, v2 = embeddings[i]
             similarity[i] = self.cosineSimilarity(v1, v2)
+
         sortedSim = [k for k, v in sorted(similarity.items(), key=lambda item: -item[1])]
-
-        # if sortedSim[0] != 0:
-        #     self.prevSentence = self.sentences[sortedSim[0]-1]
-
         return self.sentences[sortedSim[0]]
 
     #getDeclarativeAndWhWord Auxiliary functions
@@ -260,19 +254,19 @@ class WhAnswer():
         # convert tree str to a list of noun phrases
         trees = self.getParseTree(sentence)
         parented = ParentedTree.convert(trees)
-        nounPhrases = []
+        verbPhrases = []
         inQuote = False # do not split noun phrases in a quote
         for tree in parented:
             for subtree in tree.subtrees():
                 if subtree.label() == 'VP' and not inQuote:
                     t = subtree
                     t = ' '.join(t.leaves())
-                    nounPhrases.append(t)
+                    verbPhrases.append(t)
                 if subtree.left_sibling() and subtree.left_sibling().label() == '``':
                     inQuote = True
                 if subtree.label() == '\'\'':
                     inQuote = False
-        return nounPhrases
+        return sorted(verbPhrases, key=len)
 
 
     def getParseTree(self, sentence):
@@ -298,15 +292,6 @@ class WhAnswer():
         })
         return output['sentences'][0]['tokens']
 
-
-    def corefResolution(self, sentence):
-        output = self.nlp.annotate(sentence, properties= {
-            'annotators': 'coref',
-            'outputFormat': 'json'
-        })
-        return output['corefs']
-
-
     def getNerTags(self, sentence):
         output = self.nlp.annotate(sentence, properties={
             'annotators': 'ner',
@@ -331,7 +316,6 @@ class WhAnswer():
 
 
     def whereAnswer(self, question, sentence):
-        # print(sentence)
         nerTags = self.getNerTags(sentence)
         candidates = []
         for token in nerTags:
@@ -339,8 +323,6 @@ class WhAnswer():
             text = token['text']
             if (text not in question and
                 (ner == 'LOCATION' or ner == 'CITY' or ner == 'COUNTRY')):
-                # tag = nltk.pos_tag(token['text'])
-                # if tag[0][1] == 'NNP':
                 candidates.append(text)
 
         if len(candidates) == 1:
@@ -381,7 +363,6 @@ class WhAnswer():
 
 
     def whatAnswer(self, question, sentence):
-        # print(sentence)
         # return verb phrase if the main clause of the question contains VP
         qWords = {w.lower() for w in nltk.word_tokenize(question) if w not in self.sw}
         verbPhrases = self.getVerbPhrases(sentence)
@@ -479,9 +460,9 @@ class WhAnswer():
     def isDep(self, phrase, subj):
         npDep = self.getDependencyParse(phrase)
         for dep in npDep:
-            if dep['dep'] == 'ROOT' and dep['dependentGloss'] != subj:
+            if dep['dep'] == 'ROOT' and dep['dependentGloss'].lower() != subj.lower():
                 return False
-            if dep['dep'] != 'ROOT' and dep['governorGloss'] != subj:
+            if dep['dep'] != 'ROOT' and dep['governorGloss'].lower() != subj.lower():
                 return False
         return True
 
@@ -490,7 +471,7 @@ class WhAnswer():
         if 'How many' in question or 'How much' in question:
             dependency = self.getDependencyParse(question)
             subj = None
-            for dep in  dependency:
+            for dep in dependency:
                 if dep['dependentGloss'] == 'many':
                     subj = dep['governorGloss']
                     break
@@ -511,59 +492,101 @@ class BinAnswer():
         parses = self.dep_parser.parse(s.split())
         #print(s)
         result = [[(governor, dep, dependent) for governor, dep, dependent in p.triples()] for p in parses]
+        #print(result)
         return result
+
+    #Return if the synonyms and hyponyms for the given word
+    # appear in the keys
+    def check_syn_hyp(self, word, keys):
+        syns = wn.synsets(word)
+        if len(syns) == 0:
+            return False
+
+        synonyms = set()
+        for syn in syns: 
+            for l in syn.lemmas(): 
+                synonyms.add(l.name()) 
+
+        hypo = syns[0].hyponyms()
+        hypo_words = set()
+        for m in hypo:
+            for w in m.lemmas():
+                phrase = w.name().replace("_", " ") #Eliminating underscores to show one word vs 2 word statements
+                if len(phrase.split()) == 1: #Identifying single word replacements
+                    hypo_words.add(phrase)
+
+        
+        
+        combined = synonyms.union(hypo_words)
+        print("Checking word: " + word)
+        print("Synonyms + Hyponyms: " + str(combined))
+
+        for key in keys:
+            if key in combined:
+                print("MATCH: " + key)
+                return True
+        return False
 
     def yes_no(self, ques_governors, sent_governors):
         
         #Check for existence of each governor in sentence 
         # (with corresponding dependents when necessary)
-        bool_yes = True
         #print(ques_governors.keys())
         for key in ques_governors.keys():
+
+            #If key is a verb in its lemmatized form or word 
+            # has an attached copula, check to see if one is 
+            # negated and the other is not
+            #FIXME: Can make more complex check of verb tenses as well
+            if ("lem" in ques_governors[key] or "verb" in ques_governors[key]):
+                n_neg = False
+                s_neg = False
+                if "advmod" in ques_governors[key]:
+                    if ques_governors[key]["advmod"][0] == "not":
+                        n_neg = True
+                elif ("neg" in ques_governors[key]):
+                    n_neg = True
+
+                print("Checking negation: " + str(key))
+                print(ques_governors[key])
+
+                if key in sent_governors:
+                    print(sent_governors[key])
+                    if "advmod" in sent_governors[key]:
+                        if sent_governors[key]["advmod"][0] == "not":
+                            s_neg = True
+                    elif ("neg" in sent_governors[key]):
+                        s_neg = True
+
+                if n_neg != s_neg:
+                    return("NO: reason - negation of question in sentence")
 
             #print(key)
             #If head is not in other parse, then it is false
             if key not in sent_governors.keys():
+                if self.check_syn_hyp(key, sent_governors.keys()):
+                    return("YES")
                 return("NO: reason - question head not in sentence - ", key, sent_governors.keys())
-                bool_yes = False
-                break
+                
             
             #If subject and direct object are not present 
             # (connected to this word), then it is false
             if ("nsubj" in ques_governors[key]):
                 if ("nsubj" not in sent_governors[key]):
                     return("NO: reason - subject head not in sentence", ques_governors[key]["nsubj"], sent_governors[key])
-                    bool_yes = False
-                    break
             if ("nsubjpass" in ques_governors[key]):
                 if ("nsubjpass" not in sent_governors[key]):
                     return("NO: reason - subject head (pass) not in sentence")
-                    bool_yes = False
-                    break
             if ("dobj" in ques_governors[key]):
                 if ("dobj" not in sent_governors[key]):
                     return("NO: reason - direct object head not in sentence")
-                    bool_yes = False
-                    break
-
-            #If key is a verb in its lemmatized form or word 
-            # has an attached copula, check to see if one is 
-            # negated and the other is not
-            #FIXME: Can make more complex check of verb tenses as well
-            if "lem" in ques_governors[key] or "verb" in ques_governors[key]:
-                n_neg = "neg" in ques_governors[key]
-                s_neg = "neg" in sent_governors[key]
-
-                if n_neg != s_neg:
-                    return("NO: reason - negation of question in sentence")
-                    bool_yes = False
-                    break
         
-        if bool_yes:
-            return("YES")
+        return("YES")
 
     def answer(self, question, sentence):
-        
+        print("Before Dependency Parse: ")
+        print(question)
+        print(sentence)
         dep_ques = self.getDependencyParse(question)
         dep_sent = self.getDependencyParse(sentence)
 
@@ -649,16 +672,18 @@ def sanitize(answer):
 # Main function
 if __name__ == "__main__":
 
-    #article_path = sys.argv[1]
-    #questions_path = sys.argv[2]
+    article_path = sys.argv[1]
+    questions_path = sys.argv[2]
 
     print("START")
     print("Answer Preprocessing")
-    #preProc = AnswerPreprocess("./noun_counting_data/a1.txt")
-    preProc = AnswerPreprocess("./Development_data/set2/a5.txt")
+    #preProc = AnswerPreprocess("./data/noun_counting_data/a1.txt")
+    #preProc = AnswerPreprocess("./data/Development_data/set2/a5.txt")
+    preProc = AnswerPreprocess(article_path)
     print("Question Preprocessing")
-    #qProc = QuestionPreprocess("./answering_test_documents/q1.txt")
-    qProc = QuestionPreprocess("./answering_test_documents/jesse_2.txt")
+    #qProc = QuestionPreprocess("./answering_test_documents/questions/q1.txt")
+    #qProc = QuestionPreprocess("./answering_test_documents/questions/jesse_2.txt")
+    qProc = QuestionPreprocess(questions_path)
     wa = WhAnswer()
     ba = BinAnswer()
     

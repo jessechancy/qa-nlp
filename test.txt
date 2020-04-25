@@ -52,7 +52,7 @@ Closest Sentence: The name Guishuang was adopted in the West and modified into K
 Question Word: 
 Was Declarative: False
 New Question Form: the name was Guishuang adopted in the West and modified into Kushan to designate the confederation , although the Chinese continued to call them Yuezhi ?
-A (yes/no): ('NO: reason - question head not in sentence - ', 'name', dict_keys(['adopt', 'guishuang', 'west', 'modify', 'kushan', 'designate', 'confederation', 'continue', 'chinese', 'call']))
+A (yes/no): YES.
 
 8
 Q: Did the Kushans adopt elements of the Hellenistic culture of Bactria?

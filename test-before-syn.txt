@@ -1,0 +1,224 @@
+1
+Q: What is Gyarados most similar in appearance to?
+Closest Sentence: While discussing Shiny Pokémon, GamesRadar used Gyarados' shiny form as an example of a more dramatic change in appearance.
+Question Word: what
+Was Declarative: False
+New Question Form: what is Gyarados most similar in appearance to ?
+A (what): Shiny Pokémon.
+
+2
+Q: Where is Gyarados first seen?
+Closest Sentence: In the anime, Gyarados first appeared in Pokémon - I Choose You!
+Question Word: where
+Was Declarative: False
+New Question Form: where is Gyarados first seen ?
+A (where): Pokémon.
+
+3
+Q: Where is a red Gyarados found in Pokémon Gold?
+Closest Sentence: In Pokémon Gold, Silver, and Crystal, and their remakes, a red Gyarados is found in the Lake of Rage.
+Question Word: where
+Was Declarative: False
+New Question Form: where is a red Gyarados found in Pokémon Gold ?
+A (where): In the Lake of Rage.
+
+4
+Q: What franchise is Gyarados in?
+Closest Sentence: Gyarados (ギャラドス, Gyaradosu,  or ) is a Pokémon species in Nintendo and Game Freak's Pokémon franchise.
+Question Word: what
+Was Declarative: False
+New Question Form: what franchise is Gyarados in ?
+A (what): Nintendo.
+
+5
+Q: Who is Gyarados voiced by?
+Closest Sentence: Gyarados is voiced by Unshō Ishizuka in both Japanese and English media.
+Question Word: who
+Was Declarative: False
+New Question Form: who is Gyarados voiced by ?
+A (who): Unshō Ishizuka.
+
+6
+Q: What is Gyarados known for?
+Closest Sentence: Gyarados has been described as both one of the most well known and most powerful Pokémon.
+Question Word: what
+Was Declarative: False
+New Question Form: what is Gyarados known for ?
+A (what): Gyarados has been described as both one of the most well known and most powerful Pokémon.
+
+7
+Q: How is the growth of Gyarados from Pokémon Diamond and Pearl to Pokémon Black and White described by IGN?
+Closest Sentence: IGN described the growth from Pokémon Diamond and Pearl to Pokémon Black and White'' as possibly being the "series' biggest evolution since Magikarp morphed into Gyarados".
+Question Word: how
+Was Declarative: False
+New Question Form: how is the growth of Gyarados from Pokémon Diamond and Pearl to Pokémon Black and White described by IGN ?
+A (how): IGN described the growth from Pokémon Diamond and Pearl to Pokémon Black and White'' as possibly being the "series' biggest evolution since Magikarp morphed into Gyarados".
+
+8
+Q: Is a red Gyarados found in Pokémon Gold?
+Closest Sentence: In Pokémon Gold, Silver, and Crystal, and their remakes, a red Gyarados is found in the Lake of Rage.
+Question Word: 
+Was Declarative: False
+New Question Form: a red Gyarados is found in Pokémon Gold ?
+A (yes/no): YES.
+
+9
+Q: Is Gyarados a Pokémon species?
+Closest Sentence: Gyarados has been described as both one of the most well known and most powerful Pokémon.
+Question Word: 
+Was Declarative: False
+New Question Form: Gyarados is a Pokémon species ?
+A (yes/no): ('NO: reason - question head not in sentence - ', 'species', dict_keys(['describe', 'one', 'pokémon', 'know', 'well', 'powerful']))
+
+10
+Q: Does Gyarados appear multiple times under various trainers such as Misty, Lance, Crasher Wake, and Nurse Joy?
+Closest Sentence: Gyarados appears multiple times in the anime under various trainers such as Misty, Lance, Crasher Wake, and Nurse Joy.
+Question Word: 
+Was Declarative: False
+New Question Form: Gyarados does appear multiple times under various trainers such as Misty , Lance , Crasher Wake , and Nurse Joy ?
+A (yes/no): YES.
+
+11
+Q: Did Author Ash Dekirk write that Gyarados and Magikarp were inspired by the Asiatic myth of the Dragon Gate?
+Closest Sentence: Author Ash Dekirk wrote that Gyarados and Magikarp were inspired by the Asiatic myth of the Dragon Gate.
+Question Word: 
+Was Declarative: False
+New Question Form: Author Ash Dekirk did write that Gyarados and Magikarp were inspired by the Asiatic myth of the Dragon Gate ?
+A (yes/no): YES.
+
+12
+Q: In Pokémon Adventures, what debuts in the Red, Green & Blue chapter in Gyarados Splashes In!?
+Closest Sentence: In Pokémon Adventures, Gyarados debuts in the Red, Green & Blue chapter in Gyarados Splashes In!.
+Question Word: what
+Was Declarative: False
+New Question Form: in Pokémon Adventures , what debuts in the Red , Green & Blue chapter in Gyarados Splashes In !?
+A (what): In Pokémon Adventures, Gyarados debuts in the Red, Green & Blue chapter in Gyarados Splashes In!.
+
+13
+Q: What is a Gyarados?
+Closest Sentence: Gyarados (ギャラドス, Gyaradosu,  or ) is a Pokémon species in Nintendo and Game Freak's Pokémon franchise.
+Question Word: what
+Was Declarative: False
+New Question Form: what is a Gyarados ?
+A (what):  (ギャラドス, Gyaradosu, or).
+
+14
+Q: What is Gyarados known in the Pokemon world for?
+Closest Sentence: Gyarados has been described as both one of the most well known and most powerful Pokémon.
+Question Word: what
+Was Declarative: False
+New Question Form: what is Gyarados known in the Pokemon world for ?
+A (what): Gyarados has been described as both one of the most well known and most powerful Pokémon.
+
+15
+Q: What was Gyarados's beta name?
+Closest Sentence: As a result, the species' beta name was "Skulkraken", a combination of "skull" or "skulk" and "kraken", but in the final release the original Japanese name was used.
+Question Word: what
+Was Declarative: False
+New Question Form: what was Gyarados 's beta name ?
+A (what): The species'.
+
+16
+Q: What happens when Gyarados Mega Evolves?
+Closest Sentence: When it Mega Evolves, it becomes a Water/Dark type and gains the ability Mold Breaker.
+Question Word: what
+Was Declarative: False
+New Question Form: what happens when Gyarados Mega Evolves ?
+A (what): The ability.
+
+17
+Q: Which anime did Gyarados first appear in?
+Closest Sentence: In the anime, Gyarados first appeared in Pokémon - I Choose You!
+Question Word: which
+Was Declarative: False
+New Question Form: which anime did Gyarados first appear in ?
+A (what): Pokémon.
+
+18
+Q: Which chapter of Pokemon Adventures does Gyarados appear in?
+Closest Sentence: In Pokémon Adventures, Gyarados debuts in the Red, Green & Blue chapter in Gyarados Splashes In!.
+Question Word: which
+Was Declarative: False
+New Question Form: which chapter of Pokemon Adventures does Gyarados appear in ?
+A (what): In Pokémon Adventures, Gyarados debuts in the Red, Green & Blue chapter in Gyarados Splashes In!.
+
+19
+Q: Which flying type moves can Gyarados learn?
+Closest Sentence: They later called it "weird for being a Water/Flying type, but not being able to learn any flying moves at all (except for Bounce)".
+Question Word: 
+Was Declarative: False
+New Question Form: which flying type moves can Gyarados learn ?
+A (yes/no): ('NO: reason - subject head not in sentence', ('Gyarados', 'NNP'), {'lem': 'VB', 'mark': ('to', 'TO'), 'obj': ('moves', 'NNS'), 'punct': ('"', "''"), 'obl': ('Bounce', 'NNP')})
+
+20
+Q: Who voiced Gyarados in English media?
+Closest Sentence: Gyarados is voiced by Unshō Ishizuka in both Japanese and English media.
+Question Word: who
+Was Declarative: False
+New Question Form: who voiced Gyarados in English media ?
+A (who): Unshō Ishizuka.
+
+21
+Q: Who owns a Gyarados?
+Closest Sentence: Misty owns a Gyarados.
+Question Word: who
+Was Declarative: False
+New Question Form: who owns a Gyarados ?
+A (who): Misty.
+
+22
+Q: Who owns a red Gyarados?
+Closest Sentence: The other is a red Gyarados that is owned by Silver.
+Question Word: who
+Was Declarative: False
+New Question Form: who owns a red Gyarados ?
+A (who): Silver.
+
+23
+Q: Where does Gyarados live?
+Closest Sentence: Gyarados usually live in large bodies of water, such as lakes and ponds or even seas and oceans.
+Question Word: where
+Was Declarative: False
+New Question Form: where does Gyarados live ?
+A (where): In large bodies of water, such as lakes and ponds or even seas and oceans.
+
+24
+Q: Why is Gyarados hard to obtain?
+Closest Sentence: In Pokémon Go, Gyarados is generally considered one of the most difficult Pokémon to obtain - it must be evolved from a Magikarp (much like other Pokémon games) and requires 400 Magikarp candies to evolve, more than any other Pokémon in the game.
+Question Word: why
+Was Declarative: False
+New Question Form: why is Gyarados hard to obtain ?
+A (why): To obtain- it must be evolved from a Magikarp( much like other Pokémon games) and requires 400 Magikarp candiesto evolve, more than any other Pokémon in the game.
+
+25
+Q: Why is Gyarados naturally violent?
+Closest Sentence: This violent nature is attributed to the dramatic structural changes its brain undergoes during evolution.
+Question Word: why
+Was Declarative: False
+New Question Form: why is Gyarados naturally violent ?
+A (why): This violent nature is attributed to the dramatic structural changes its brain undergoes during evolution.
+
+26
+Q: How many fins does Gyarados have?
+Closest Sentence: It has four white fins down its back, and a large and gaping mouth.
+Question Word: how
+Was Declarative: False
+New Question Form: how many fins does Gyarados have ?
+A (how): Four white fins.
+
+27
+Q: How many Magikarp Candies are needed to evolve Gyarados?
+Closest Sentence: In the newest iteration of the series, Pokémon Go, the Gyarados is evolved by obtaining 400 Magikarp Candies.
+Question Word: how
+Was Declarative: False
+New Question Form: how many Magikarp Candies are needed to evolve Gyarados ?
+A (how): 400 Magikarp Candies.
+
+28
+Q: When can a carp evolve into a dragon?
+Closest Sentence: The concept of Magikarp evolving into Gyarados is based on the ancient Chinese tradition that the carp would evolve into a dragon after swimming upstream.
+Question Word: when
+Was Declarative: False
+New Question Form: when can a carp evolve into a dragon ?
+A (when): The carp would evolve into a dragon after swimming upstream.
+
