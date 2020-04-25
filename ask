@@ -9,6 +9,7 @@ from nltk.tree import Tree
 from nltk.draw.tree import TreeView
 
 STANFORD = os.path.join("models", "stanford-corenlp-full-2018-10-05")
+STANFORD = os.path.join("CoreNLP")
 server = CoreNLPServer(
    os.path.join(STANFORD, "stanford-corenlp-3.9.2.jar"),
    os.path.join(STANFORD, "stanford-corenlp-3.9.2-models.jar"),
