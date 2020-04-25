@@ -6,7 +6,6 @@ from nltk.tree import Tree, ParentedTree
 from nltk.stem.snowball import SnowballStemmer
 from pycorenlp import StanfordCoreNLP
 from collections import defaultdict
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def cosineSimilarity(v1, v2):
@@ -63,15 +62,12 @@ class whAnswer():
             sentenceEmbedding = []
             qEmbedding = []
             for w in combined:
-                documents = [sentence, w]
-                tfidf_vec = TfidfVectorizer().fit_transform(documents)
-                tfidf = ((tfidf_vec * tfidf_vec.T).A)[0,1]
                 if w in wordSet:
-                    sentenceEmbedding.append(self.embeddings_dict[w]*tfidf)
+                    sentenceEmbedding.append(self.embeddings_dict[w])
                 else:
                     sentenceEmbedding.append(0)
                 if w in qSet:
-                    qEmbedding.append(self.embeddings_dict[w]*tfidf)
+                    qEmbedding.append(self.embeddings_dict[w])
                 else:
                     qEmbedding.append(0)
             embeddings.append((sentenceEmbedding, qEmbedding))
@@ -346,23 +342,23 @@ class whAnswer():
 if __name__ == '__main__':
     wa = whAnswer("./noun_counting_data/a1.txt")
     questions = [
-    # "What video game series did Gyarados first show up?",
+    "What video game series did Gyarados first show up?",
     "What is a Gyarados?",
     "What is Gyarados known in the Pokemon world for?",
     "What was Gyarados's beta name?",
     "What happens when Gyarados Mega Evolves?",
-    # "Which anime did Gyarados first appear in?",
-    # "Which chapter of Pokemon Adventures does Gyarados appear in?",
-    # "Which flying type moves can Gyarados learn?",
-    # "Who voiced Gyarados in English media?",
-    # "Who owns a Gyarados?",
-    # "Who owns a red Gyarados?",
-    # "Where does Gyarados live?",
-    # "Why is Gyarados hard to obtain?",
+    "Which anime did Gyarados first appear in?",
+    "Which chapter of Pokemon Adventures does Gyarados appear in?",
+    "Which flying type moves can Gyarados learn?",
+    "Who voiced Gyarados in English media?",
+    "Who owns a Gyarados?",
+    "Who owns a red Gyarados?",
+    "Where does Gyarados live?",
+    "Why is Gyarados hard to obtain?",
     "Why is Gyarados naturally violent?",
     "How many fins does Gyarados have?",
     "How many Magikarp Candies are needed to evolve Gyarados?",
-    # "When can a carp evolve into a dragon?",
+    "When can a carp evolve into a dragon?",
     ]
     for q in questions:
         print("Q: "+q)
@@ -385,11 +381,11 @@ if __name__ == '__main__':
 
     wa2 = whAnswer("./Development_data/set1/a1.txt")
     questions2 = [
-    "What is the Old Kingdom frequently referred to as?",
-    "What is the Old Kingdom also known as?",
-    "What is the Old Kingdom famous for?",
-    "What is the ancient Egyptian name for Memphis?",
-    "What is the name for independent Egyption states?",
+    # "What is the Old Kingdom frequently referred to as?",
+    # "What is the Old Kingdom also known as?",
+    # "What is the Old Kingdom famous for?",
+    # "What is the ancient Egyptian name for Memphis?",
+    "What are independent Egyption states known as?",
     # "Who was the first king of the Old Kingdom?",
     # "Who was Sneferu succeeded by?",
     # "Who succeeded Sahure?",
