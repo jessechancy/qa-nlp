@@ -511,12 +511,9 @@ class BinAnswer():
         
         
         combined = synonyms.union(hypo_words)
-        print("Checking word: " + word)
-        print("Synonyms + Hyponyms: " + str(combined))
 
         for key in keys:
             if key in combined:
-                print("MATCH: " + key)
                 return True
         return False
 
