@@ -66,7 +66,7 @@ RUN unzip glove.6B.zip
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN apt-get -y install python3-tk
-RUN sudo apt update -y && sudo apt install software-properties-common -y && sudo add-apt-repository ppa:deadsnakes/ppa -y && sudo apt install python3.7 -y
+RUN apt update -y && apt install software-properties-common -y && add-apt-repository ppa:deadsnakes/ppa -y && apt install python3.7 -y
 
 
 
