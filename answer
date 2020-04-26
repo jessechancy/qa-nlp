@@ -711,7 +711,7 @@ if __name__ == "__main__":
                 answer = sanitize(answer)
             print(answer)
 
-# #!/usr/bin/env python3
+
 # import os
 # import sys
 # import nltk
