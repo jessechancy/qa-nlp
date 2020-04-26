@@ -73,8 +73,10 @@ class Questions():
             label = ent.label
             if label == 383 or label == 380: #"PERSON":
                 question.append(f"What {vpWord}?")
+                break
             elif label == 381: # "PEOPLE":
                 question.append(f"Who {vpWord} ?")
+                break
             # elif label == 380: # "object":
             #     question.append(f"What {vpWord} ?")
         innerNPtype = np[0].label()
