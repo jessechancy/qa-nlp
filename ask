@@ -27,7 +27,7 @@ datum = (wikipedia.page(title="Pokemon").content)
 '''
 #doc = nlp(datum)
 
-(requests.post('http://[::]:9000/?properties={"annotators":"tokenize,ssplit,pos","outputFormat":"json"}', data = {'data': datum}).text)
+# (requests.post('http://[::]:9000/?properties={"annotators":"tokenize,ssplit,pos","outputFormat":"json"}', data = {'data': datum}).text)
 #server.start()
 
 question = []
