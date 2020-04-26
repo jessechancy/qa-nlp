@@ -383,5 +383,5 @@ q = Questions(sentences, parser, sp)
 indexed_questions, performance = q.get_questions()
 questions = rank(indexed_questions, rank_phrases)
 
-nquestion = sys.argv[2]
+nquestion = (int)sys.argv[2]
 print(questions[:nquestion])
