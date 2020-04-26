@@ -34,7 +34,6 @@ class AnswerPreprocess():
         self.sw = stopwords.words("english")
         self.qw = {"What", "Who", "When", "Where", "Why", "Which", "How"}
 
-        # handle new lines - FIXME: Ask Sojeong about this note, might be related to an issue I had as well
         self.sentences = []
         for lines in self.fileText.split("\n"):
             for sent in nltk.sent_tokenize(lines):
@@ -107,7 +106,6 @@ class AnswerPreprocess():
     #Recurse until string of the wh word is found
     def find_wh_word(self, question):
         
-        #print(question)
         if isinstance(question, str):
             return ""
 
@@ -154,7 +152,6 @@ class AnswerPreprocess():
             #Cannot handle this form if the next thing after
             # verb isnt a noun phrase/noun
             else:
-                #print("ERROR: COULD NOT DETERMINE WHERE TO PLACE VERB. NO NOUN PHRASE.")
                 return ""
 
         else:
@@ -171,7 +168,6 @@ class AnswerPreprocess():
             result = self.recurse_make_binary_declarative(question, verb[0], 1)
             
             if result == "":
-                #print("ERROR: COULD NOT RECONFIGURE")
                 return self.tree_to_string(question)
             
             return result
@@ -192,7 +188,6 @@ class AnswerPreprocess():
         result = self.parser.parse(split_question)
         listResult = list(result)
         parsed_tree = listResult[0]
-        #print(parsed_tree)
 
         was_declarative = False #Mark if question was parsed declarativef
         question_word = ""
@@ -214,7 +209,7 @@ class AnswerPreprocess():
             if question_word == "": # Last check in case wh-question was missed
                 was_declarative = True
                 new_sentence = self.tree_to_string(question) 
-                #NOTE: May not want to use this new sentence as some tokens may be altered, 
+                #NOTE: Some special tokens may be altered in new_sentence 
                 # example "(" and ")" become "-LRB-" and "-RRB-" respectively
 
         return [question_word, was_declarative, new_sentence]
@@ -490,9 +485,7 @@ class BinAnswer():
 
     def getDependencyParse(self, s):
         parses = self.dep_parser.parse(s.split())
-        #print(s)
         result = [[(governor, dep, dependent) for governor, dep, dependent in p.triples()] for p in parses]
-        #print(result)
         return result
 
     #Return if the synonyms and hyponyms for the given word
@@ -531,13 +524,11 @@ class BinAnswer():
         
         #Check for existence of each governor in sentence 
         # (with corresponding dependents when necessary)
-        #print(ques_governors.keys())
         for key in ques_governors.keys():
 
             #If key is a verb in its lemmatized form or word 
             # has an attached copula, check to see if one is 
             # negated and the other is not
-            #FIXME: Can make more complex check of verb tenses as well
             if ("lem" in ques_governors[key] or "verb" in ques_governors[key]):
                 n_neg = False
                 s_neg = False
@@ -547,11 +538,7 @@ class BinAnswer():
                 elif ("neg" in ques_governors[key]):
                     n_neg = True
 
-                print("Checking negation: " + str(key))
-                print(ques_governors[key])
-
                 if key in sent_governors:
-                    print(sent_governors[key])
                     if "advmod" in sent_governors[key]:
                         if sent_governors[key]["advmod"][0] == "not":
                             s_neg = True
@@ -559,34 +546,30 @@ class BinAnswer():
                         s_neg = True
 
                 if n_neg != s_neg:
-                    return("NO: reason - negation of question in sentence")
+                    return("No.")
 
-            #print(key)
             #If head is not in other parse, then it is false
             if key not in sent_governors.keys():
                 if self.check_syn_hyp(key, sent_governors.keys()):
-                    return("YES")
-                return("NO: reason - question head not in sentence - ", key, sent_governors.keys())
+                    return("Yes.")
+                return("No.")
                 
             
             #If subject and direct object are not present 
             # (connected to this word), then it is false
             if ("nsubj" in ques_governors[key]):
                 if ("nsubj" not in sent_governors[key]):
-                    return("NO: reason - subject head not in sentence", ques_governors[key]["nsubj"], sent_governors[key])
+                    return("No.")
             if ("nsubjpass" in ques_governors[key]):
                 if ("nsubjpass" not in sent_governors[key]):
-                    return("NO: reason - subject head (pass) not in sentence")
+                    return("No.")
             if ("dobj" in ques_governors[key]):
                 if ("dobj" not in sent_governors[key]):
-                    return("NO: reason - direct object head not in sentence")
-        
-        return("YES")
+                    return("No.")
+        return("Yes.")
 
     def answer(self, question, sentence):
-        print("Before Dependency Parse: ")
-        print(question)
-        print(sentence)
+
         dep_ques = self.getDependencyParse(question)
         dep_sent = self.getDependencyParse(sentence)
 
@@ -600,18 +583,13 @@ class BinAnswer():
         for k in range(len(dependencies)):
             dpnd = dependencies[k]
             govs = governors[k]
-            #print(dpnd)
 
             #build dictionary based on governors
             for item in dpnd:
                 g_word = item[0][0].lower()
-                #print(g_word)
                 g_pos = item[0][1]
-                #print(g_pos)
                 dep = item[1]
-                #print(dep)
                 dependent = item[2]
-                #print(dependent)
 
                 #If the governor is a verb, store its base form as the key
                 if g_pos.startswith("V"): 
@@ -675,28 +653,14 @@ if __name__ == "__main__":
     article_path = sys.argv[1]
     questions_path = sys.argv[2]
 
-    print("START")
-    print("Answer Preprocessing")
-    #preProc = AnswerPreprocess("./data/noun_counting_data/a1.txt")
-    #preProc = AnswerPreprocess("./data/Development_data/set2/a5.txt")
     preProc = AnswerPreprocess(article_path)
-    print("Question Preprocessing")
-    #qProc = QuestionPreprocess("./answering_test_documents/questions/q1.txt")
-    #qProc = QuestionPreprocess("./answering_test_documents/questions/jesse_2.txt")
     qProc = QuestionPreprocess(questions_path)
     wa = WhAnswer()
     ba = BinAnswer()
     
     questions = qProc.getQuestions()
 
-    fileTest = open("test.txt", "+w")
-
-    print("Questions")
-    q_number = 0 #FIXME: Remove after testing
     for q in questions:
-        print(q_number)
-        q_number += 1
-        print("Q: " + q)
         q_mark_removed = q[:-1]
 
         s = preProc.getSimilarSentences(q_mark_removed)
@@ -706,72 +670,47 @@ if __name__ == "__main__":
             new_sentence
         ] = preProc.getDeclarativeAndWhWord(q)
 
-        print("Closest Sentence: " + s)
-        print("Question Word: " + question_word)
-        print("Was Declarative: " + str(was_declarative))
-        print("New Question Form: " + new_sentence)
-
-        fileTest.write(str(q_number) + "\n")
-        fileTest.write("Q: " + q + "\n")
-        fileTest.write("Closest Sentence: " + s + "\n")
-        fileTest.write("Question Word: " + question_word + "\n")
-        fileTest.write("Was Declarative: " + str(was_declarative) + "\n")
-        fileTest.write("New Question Form: " + new_sentence + "\n")
-
         if new_sentence != "" and new_sentence[-1] == "?":
             new_sentence = new_sentence[:-1] #Remove question mark
 
         if question_word == "what" or question_word == "which":
             answer = wa.whatAnswer(q_mark_removed, s)
             answer = sanitize(answer)
-            print("A (what): ", answer)
-            fileTest.write("A (what): " + answer + "\n")
+            print(answer)
 
         elif question_word == "when":
             answer = wa.whenAnswer(q_mark_removed, s)
             answer = sanitize(answer)
-            print("A (when): ", answer)
-            fileTest.write("A (when): " + answer + "\n")
+            print(answer)
 
         elif question_word == "where":
             answer = wa.whereAnswer(q_mark_removed, s)
             answer = sanitize(answer)
-            print("A (where): ", answer)
-            fileTest.write("A (where): " + answer + "\n")
+            print(answer)
 
         elif question_word == "who":
             answer = wa.whoAnswer(q_mark_removed, s)
             answer = sanitize(answer)
-            print("A (who): ", answer)
-            fileTest.write("A (who): " + answer + "\n")
+            print(answer)
 
         elif question_word == "why":
             answer = wa.whyAnswer(q_mark_removed, s)
             answer = sanitize(answer)
-            print("A (why): ", answer)
-            fileTest.write("A (why): " + answer + "\n")
+            print(answer)
 
         elif question_word == "how":
             answer = wa.howAnswer(q_mark_removed, s)
             answer = sanitize(answer)
-            print("A (how): ", answer)
-            fileTest.write("A (how): " + answer + "\n")
+            print(answer)
 
         elif not was_declarative:
             answer = ba.answer(new_sentence, s)
             if isinstance(answer, str):
                 answer = sanitize(answer)
-            print("A (yes/no): ", answer)
-            fileTest.write("A (yes/no): " + str(answer) + "\n")
+            print(answer)
 
         else:
             answer = wa.generalAnswer(q_mark_removed, s)
             if isinstance(answer, str):
                 answer = sanitize(answer)
-            print("A (declarative): ", answer)
-            fileTest.write("A (declarative): " + answer + "\n")
-            
-        print()
-        fileTest.write("\n")
-
-    fileTest.close()
+            print(answer)
