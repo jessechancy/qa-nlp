@@ -52,7 +52,7 @@ do export CLASSPATH="$CLASSPATH:`realpath $file`"; done
 COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY bash/profile .profile
 
-ENV JAVA_XMX 4g
+ENV JAVA_XMX 1g
 # Expose port 9000 for standford corenlp
 ENV PORT 9000
 
@@ -74,7 +74,7 @@ COPY . .
 CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
 CMD ["chmod 777 start.sh"]
-RUN java -mx4g -cp "CoreNLP/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000 &
+RUN java -mx1g -cp "CoreNLP/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000 &
 CMD ["/usr/bin/supervisord"]
 #ENTRYPOINT ["/bin/bash", "-c"]
 ENTRYPOINT [ "./start.sh" ]
