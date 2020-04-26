@@ -1,2 +1,4 @@
 nltk
 pycorenlp
+neuralcoref
+pytextrank
