@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 import os
 import sys
 import nltk
@@ -633,13 +633,19 @@ def sanitize(answer):
 
     return result
 
+
+import time
+
+
 def wake_up_core():
     try:
         parser = CoreNLPParser(url='http://localhost:9000')
         parser.parse("testing")
     except Exception as e:
         print(str(e))
+        time.sleep(5)
         wake_up_core()
+
 
 # Main function
 if __name__ == "__main__":
@@ -711,7 +717,7 @@ if __name__ == "__main__":
                 answer = sanitize(answer)
             print(answer)
 
-
+# #!/usr/bin/env python3
 # import os
 # import sys
 # import nltk
