@@ -1,5 +1,5 @@
 # Ubuntu Linux as the base image
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 # Set UTF-8 encoding
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
@@ -65,10 +65,10 @@ RUN wget http://nlp.stanford.edu/data/glove.6B.zip
 RUN unzip glove.6B.zip
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN apt-get -y install python3-tk
-RUN apt update -y && apt install software-properties-common -y && add-apt-repository ppa:deadsnakes/ppa -y && apt update -y && apt install python3.7 -y
-RUN python3.7 -m pip install pip
-RUN pip3 install --no-cache-dir -r requirements.txt
+#RUN apt-get -y install python3-tk
+#RUN apt update -y && apt install software-properties-common -y && add-apt-repository ppa:deadsnakes/ppa -y && apt update -y && apt install python3.7 -y
+#RUN python3.7 -m pip install pip
+#RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
