@@ -2,7 +2,7 @@ from tree_operations import *
 from sentence_processing import pre_clean, post_clean
 from nltk import pos_tag
 
-invertible_aux_verb = {'am', 'are', 'is', 'was', 'were', 'can', 'could', 'may', 'might',
+invertible_aux_verb = {'am', 'are', 'is', 'was', 'were', 'can', 'could',
                        'must', 'shall', 'should', 'will', 'would'}
 invertible_special = {'does', 'did', 'has', 'had', 'have'}
 
@@ -64,30 +64,29 @@ class Questions():
 
         vpWord = " ".join(vp.leaves())
         npWord = " ".join(np.leaves())
+        plural = False
+        if (has_label(np, {'NNS', 'NNPS'})):
+            plural = True
         doc = self.sp(npWord)
-
+        prev = None
         for ent in doc.ents:
-            # print(f'ent text : {ent.text}\n')
-            # print(f'ent label : {ent.label}\n')
             text = ent.text
-            label = ent.label
-            if label == 383 or label == 380: #"PERSON":
-                question.append(f"What {vpWord}?")
-            elif label == 381: # "PEOPLE":
+            label = ent.label_
+            if prev != None and label != prev:
+                return None
+            prev = label
+            if label == 'ORG':
+                question.append(f"What {vpWord} ?")
+            elif label == 'PERSON':
                 question.append(f"Who {vpWord} ?")
-            # elif label == 380: # "object":
-            #     question.append(f"What {vpWord} ?")
-        innerNPtype = np[0].label()
-
-        # if innerNPtype == "CD":
-        #     question.append(f"How many {npWord} ?")
-        # if innerNPtype == "NNS":
-        #     #question.append(f"Who are {npWord} ?")
-        #     question.append(f"What are {npWord} ?")
-        #     question.append(f"What {npWord} {vpWord} ?")
-        #     question.append(f"Why do {npWord} {vpWord} ?")
-        assert (np.label() == 'NP')
-        assert (vp.label() == 'VP')
+            elif label == 'NORP':
+                question.append(f"Which {'groups' if plural else 'group'} {vpWord} ?")
+            elif label == 'TIME' or label == 'DATE':
+                question.append(f"When {vpWord} ?")
+            elif label == 'GPE':
+                question.append(f"Which {'bodies' if plural else 'body'} {vpWord} ?")
+            elif label == 'EVENT' or label == 'PRODUCT':
+                question.append(f"What {vpWord} ?")
         return question
 
     def get_questions(self):
@@ -113,7 +112,6 @@ class Questions():
                         parsed_list.append((post_clean(q), i, pp_count))
                     total += 1
             except Exception as e:
-                print(e)
                 failed += 1
         return parsed_list, (total, matched, failed)
             

@@ -3,7 +3,11 @@ import re
 def post_clean(sentence):
     sentence = sentence.replace('`` ', '\"')
     sentence = sentence.replace(' \'\'', '\"')
-    sentence = re.sub(' (?=[,;:\.\?!\'%])', '', sentence)
+    sentence = sentence.replace('-RRB-', '')
+    sentence = sentence.replace('-LRB-', '')
+    sentence = sentence.replace(' -- ', '--')
+    sentence = re.sub(';([.*? ^ \?]*) ?', '?', sentence)
+    sentence = re.sub(' (?=[,:\.\?!\'%])', '', sentence)
     return sentence
         
 def pre_clean(sentence):

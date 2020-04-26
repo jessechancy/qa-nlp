@@ -20,7 +20,7 @@ sp = spacy.load('en_core_web_lg')
 neuralcoref.add_to_pipe(sp)
 sp.add_pipe(tr.PipelineComponent, name="textrank", last=True)
 
-with open(f'./../Development_data/set2/a1.txt', 'r') as f:
+with open(f'./../Development_data/set2/a5.txt', 'r') as f:
     file = (f.read())
 
 def get_resolved(doc, clusters):
@@ -32,7 +32,6 @@ def get_resolved(doc, clusters):
             token_labels.append(i)
     resolved = list(tok.text_with_ws for tok in doc)
     if len(resolved) != len(token_labels):
-        print("FAILED COREF")
         return ''.join(resolved)
     for cluster in clusters:
         seen = set()
@@ -54,6 +53,7 @@ sentences.extend(new_sentences)
 
 i = 0
 while i < len(sentences):
+    
     if sentences[i][-1] != ".":
         sentences.pop(i)
         if len(sentences) > i:
@@ -68,4 +68,3 @@ indexed_questions, performance = q.get_questions()
 questions = rank(indexed_questions, rank_phrases)
 for question in questions:
     print(question)
-print(performance)
