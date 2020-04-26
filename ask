@@ -158,7 +158,7 @@ parse_list = []
 for sentence in sentences:
     if len(sentence) < 180:
         parse = next(parser.raw_parse(sentence))
-        TreeView(parse)._cframe.print_to_file('output.ps')
+        # TreeView(parse)._cframe.print_to_file('output.ps')
  #       os.system('convert output.ps output.png')
         if satisfies_structure(parse, simple_predicate):
             # print("=========================== Sentence ======================")
