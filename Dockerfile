@@ -76,6 +76,6 @@ CMD ["chmod 777 ask"]
 CMD ["chmod 777 answer"]
 CMD ["chmod 777 start.sh"]
 #RUN java -mx1g -cp "CoreNLP/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -preload tokenize,ssplit,pos,lemma,ner,parse,depparse -status_port 9000 -port 9000 -timeout 15000 &
-CMD ["/usr/bin/supervisord"]
+#CMD ["/usr/bin/supervisord"]
 #ENTRYPOINT ["/bin/bash", "-c"]
 ENTRYPOINT [ "./start.sh" ]
