@@ -643,7 +643,7 @@ def wake_up_core():
         parser.parse("testing")
     except Exception as e:
         print(str(e))
-        time.sleep(10)
+        time.sleep(20)
         wake_up_core()
 
 
