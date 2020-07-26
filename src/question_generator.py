@@ -6,14 +6,14 @@ invertible_aux_verb = {'am', 'are', 'is', 'was', 'were', 'can', 'could',
                        'must', 'shall', 'should', 'will', 'would'}
 invertible_special = {'does', 'did', 'has', 'had', 'have'}
 
-purge_tree = {"PRN", "ADVP", "RB"} #WHNP with parent SBAR #JJ, JJR, ADJP, S with parent NP
+purge_labels = {"PRN", "ADVP", "RB"} #TODO: WHNP with parent SBAR #JJ, JJR, ADJP, S with parent NP
 
 proper_nouns = {"NNP", "NNPS"}
 nouns = {"NNP", "NNPS"}
 valid_determiners = {"the", "a"}
 unclear_referral = {'this', 'that', 'these', 'those', 'it', 'their', 'they'}
 
-class Questions():
+class QuestionGenerator():
     def __init__(self, sentences, parser, sp):
         self.sentences = sentences
         self.parser = parser #CoreNLPParser()
@@ -99,10 +99,10 @@ class Questions():
             try: 
                 sentence = pre_clean(sentence)
                 parse = next(self.parser.raw_parse(sentence))
-                #print(parse)
-                purge(parse, purge_tree)
+                purge(parse, purge_labels)
+                #only work on sentences with simple predicate structure
                 if satisfies_simple_pred(parse):
-                    pp_count = count_pp(parse)
+                    pp_count = count_pp(parse) #count propositional phrases
                     binary_question = self.binary_question_from_tree(parse)
                     wh_questions = self.wh_questions_from_tree(parse)
                     if binary_question != None:
@@ -112,6 +112,7 @@ class Questions():
                         parsed_list.append((post_clean(q), i, pp_count))
                     total += 1
             except Exception as e:
+                print("Error:", e)
                 failed += 1
         return parsed_list, (total, matched, failed)
             

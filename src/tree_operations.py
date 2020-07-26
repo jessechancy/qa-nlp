@@ -1,4 +1,3 @@
-
 def list_to_string(word_list):
     return ' '.join(word_list)
 

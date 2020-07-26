@@ -3,7 +3,6 @@
 PP_LIMIT = 2
 COMMA_LIMIT = 2
 
-
 def contains(question, phrase_list):
     for phrase in phrase_list:
         if phrase.text in question:
@@ -34,7 +33,6 @@ def rank(indexed_questions, rank_phrases):
     for question in rank1:
         flag = False
         for p in rank_phrases:
-            print(p.chunks, p.rank)
             if contains(question, p.chunks):
                 finalrank[question] = p.rank
                 break
